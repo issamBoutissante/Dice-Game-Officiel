@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+      integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-container">
+        <div class="chat-icon">
+          <i class="fas fa-comments chat"></i>
+        </div>
+        <div class="goNewGame">
+          <i class="far fa-plus-square"></i>
+          <span>New Game</span>
+        </div>
+        <div class="close-icon">
+          <span class="close">&times;</span>
+        </div>
+      </div>
+      <div class="layout-container">
+        <div class="side-container active">
+          <div class="player-name">
+            <span>Chaimae</span>
+            <div class="cubeActiveContainer">
+              <div id="CubeActive">
+                <div class="sideActive faceActive1">
+                  <div class="dotActive1 dotActive"></div>
+                </div>
+                <div class="sideActive faceActive2">
+                  <div class="dotActive1 dotActive"></div>
+                  <div class="dotActive2 dotActive"></div>
+                </div>
+                <div class="sideActive faceActive3">
+                  <div class="dotActive1 dotActive"></div>
+                  <div class="dotActive2 dotActive"></div>
+                  <div class="dotActive3 dotActive"></div>
+                </div>
+                <div class="sideActive faceActive4">
+                  <div class="dotActive1 dotActive"></div>
+                  <div class="dotActive2 dotActive"></div>
+                  <div class="dotActive3 dotActive"></div>
+                  <div class="dotActive4 dotActive"></div>
+                </div>
+                <div class="sideActive faceActive5">
+                  <div class="dotActive1 dotActive"></div>
+                  <div class="dotActive2 dotActive"></div>
+                  <div class="dotActive3 dotActive"></div>
+                  <div class="dotActive4 dotActive"></div>
+                  <div class="dotActive5 dotActive"></div>
+                </div>
+                <div class="sideActive faceActive6">
+                  <div class="dotActive1 dotActive"></div>
+                  <div class="dotActive2 dotActive"></div>
+                  <div class="dotActive3 dotActive"></div>
+                  <div class="dotActive4 dotActive"></div>
+                  <div class="dotActive5 dotActive"></div>
+                  <div class="dotActive6 dotActive"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="total-point">
+            <span id="total-score">60 </span>
+          </div>
+          <div class="current-point">
+            <span>Current</span>
+            <div>
+              <span id="current-score">6</span>
+            </div>
+          </div>
+        </div>
+        <div class="side-container">
+          <div class="player-name">
+            <span>Hamood</span>
+          </div>
+          <div class="total-point">
+            <span id="total-score">50 </span>
+          </div>
+          <div class="current-point">
+            <span>Current</span>
+            <div>
+              <span id="current-score">8</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cubeContainer">
+        <div id="Cube">
+          <div class="side face1">
+            <div class="dot1 dot"></div>
+          </div>
+          <div class="side face2">
+            <div class="dot1 dot"></div>
+            <div class="dot2 dot"></div>
+          </div>
+          <div class="side face3">
+            <div class="dot1 dot"></div>
+            <div class="dot2 dot"></div>
+            <div class="dot3 dot"></div>
+          </div>
+          <div class="side face4">
+            <div class="dot1 dot"></div>
+            <div class="dot2 dot"></div>
+            <div class="dot3 dot"></div>
+            <div class="dot4 dot"></div>
+          </div>
+          <div class="side face5">
+            <div class="dot1 dot"></div>
+            <div class="dot2 dot"></div>
+            <div class="dot3 dot"></div>
+            <div class="dot4 dot"></div>
+            <div class="dot5 dot"></div>
+          </div>
+          <div class="side face6">
+            <div class="dot1 dot"></div>
+            <div class="dot2 dot"></div>
+            <div class="dot3 dot"></div>
+            <div class="dot4 dot"></div>
+            <div class="dot5 dot"></div>
+            <div class="dot6 dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hold-container">
+        <button id="holdbtn">HOLD</button>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

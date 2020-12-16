@@ -1,3 +1,15 @@
+function goOnline() {
+  var x = document.getElementById("online");
+  var y = document.getElementById("offline");
+  x.style.display = "block";
+  y.style.display = "none";
+}
+function goOffline() {
+  var x = document.getElementById("online");
+  var y = document.getElementById("offline");
+  y.style.display = "block";
+  x.style.display = "none";
+}
 // the modal
 var modal = document.getElementById("modalEnterName");
 var modal2 = document.getElementById("modalJoinGame");
@@ -8,6 +20,26 @@ var btnPlay = document.getElementById("play");
 var span = document.getElementsByClassName("close")[0];
 var span2 = document.getElementsByClassName("close")[1];
 var span3 = document.getElementsByClassName("close")[2];
+
+btnNewGame.onclick = function () {
+  modal.style.display = "block";
+};
+btnJoinGame.onclick = function () {
+  modal2.style.display = "block";
+};
+btnPlay.onclick = function () {
+  modal3.style.display = "block";
+};
+
+span.onclick = function () {
+  modal.style.display = "none";
+};
+span2.onclick = function () {
+  modal2.style.display = "none";
+};
+span3.onclick = function () {
+  modal3.style.display = "none";
+};
 
 window.onclick = function (event) {
   if (

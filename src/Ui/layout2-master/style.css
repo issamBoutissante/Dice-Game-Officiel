@@ -324,6 +324,12 @@
   height: 50%;
 }
 /* The Close Button */
+/*What you have to add from here*/
+.close-icon span {
+  margin-right: 15px;
+  font-size: 35px;
+}
+/*to here*/
 .close {
   color: #50abf1;
   float: right;

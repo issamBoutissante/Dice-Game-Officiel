@@ -32,6 +32,9 @@ const HomeScreen = () => {
   return (
     <section>
       <div className="container">
+        <div class="close-icon">
+          <span class="close">&times;</span>
+        </div>
         <header className="nav">
           <div className="logo">
             <span className="Logo-text"> Dice Game</span>

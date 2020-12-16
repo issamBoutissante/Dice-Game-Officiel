@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
-import InfoContext from "../../../../InfoContext/InfoContext";
+import { InfoContext } from "../../../../InfoContext/InfoContext";
+import { Redirect } from "react-router-dom";
+import RequestModal from "../RequestModal/RequestModal";
 
 const NewGameModal = ({ onCloseModalHandler }) => {
   const {
@@ -19,7 +21,6 @@ const NewGameModal = ({ onCloseModalHandler }) => {
   useEffect(() => {
     Socket.on("GameStarted", ({ friendName }) => {
       setShowGame(true);
-      //window.location.href = `/GameScreen?friendName=${friendName}&hosterName=${hosterName}&Socket=${Socket}&roomId=${RoomId}`;
     });
   }, []);
   const onAnswerHandler = (isAccepted) => {
@@ -46,8 +47,10 @@ const NewGameModal = ({ onCloseModalHandler }) => {
     RoomIdRef.current.select();
     RoomIdRef.current.setSelectionRange(0, 99999);
     document.execCommand("copy");
-
     ToolTipRef.current.innerHTML = "Copied: " + copyText.value;
+  };
+  const onOutFunction = () => {
+    ToolTipRef.current.innerHTML = "Copy to clipboard";
   };
   return (
     <div class="modal-name">
@@ -55,19 +58,6 @@ const NewGameModal = ({ onCloseModalHandler }) => {
         &times;
       </span>
       <div class="login">
-        <div id="name-container">
-          <label htmlFor="name">Enter your name:</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            onChange={(e) => {
-              setHosterName(e.target.value);
-            }}
-            placeholder="Enter your name.."
-          />
-          <button onClick={onStartNewGameHandler}>submit</button>
-        </div>
         {showId ? (
           <div id="id-container">
             <label for="id">Your ID is:</label>
@@ -82,7 +72,7 @@ const NewGameModal = ({ onCloseModalHandler }) => {
               <i
                 class="far fa-clipboard"
                 onClick={onCopyFunction}
-                onMouseOut="outFunc()"
+                onMouseOut={onOutFunction}
               >
                 <span class="tooltiptext" ref={ToolTipRef} id="myTooltip">
                   Copy to clipboard
@@ -90,6 +80,24 @@ const NewGameModal = ({ onCloseModalHandler }) => {
               </i>
             </div>
           </div>
+        ) : (
+          <div id="name-container">
+            <label htmlFor="name">Enter your name:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              onChange={(e) => {
+                setHosterName(e.target.value);
+              }}
+              placeholder="Enter your name.."
+            />
+            <button onClick={onStartNewGameHandler}>submit</button>
+          </div>
+        )}
+        {showGame ? <Redirect to={"/GameScreen"}></Redirect> : null}
+        {showDialog ? (
+          <RequestModal onAnswerHandler={onAnswerHandler}></RequestModal>
         ) : null}
       </div>
     </div>

@@ -12,3 +12,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+@font-face {
+  font-family: "Luckiest Guy";
+  src: url(./fonts/_gP_1RrxsjcxVyin9l9n_j2hTd52.woff2) format("woff2"),
+    url(./fonts/LuckiestGuy-Regular.ttf) format("ttf");
+}

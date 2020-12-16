@@ -2,7 +2,9 @@ import React, { useRef, useState } from "react";
 import NewGameModal from "./NewGameModal/NewGameModal";
 import JoinGameModal from "./JoinGameModal/JoinGameModal";
 import PlayModal from "./PlayModal/PlayModal";
+import RequestModal from "./RequestModal/RequestModal";
 import "./Modal.css";
+
 const Modal = ({ modalName, setShowModal }) => {
   const modalRef = useRef(null);
   const onCloseModalHandler = () => {
@@ -28,7 +30,10 @@ const Modal = ({ modalName, setShowModal }) => {
         <PlayModal onCloseModalHandler={onCloseModalHandler}></PlayModal>
       );
       break;
-
+    case "RequestModal":
+      content = (
+        <RequestModal onCloseModalHandler={onCloseModalHandler}></RequestModal>
+      );
     default:
       content = null;
       break;
