@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { InfoContext } from "../../InfoContext/InfoContext";
+import { InfoContext } from "../../../InfoContext/InfoContext";
 import Game from "./Game/Game";
 const position = {
   1: "rotateX(180deg) rotateY(1260deg)",
@@ -96,11 +96,9 @@ export default class GameScreen extends Component {
   //this player will toggle players and their style
   togglePlayer() {
     if (this.state.currentPlayer === this.state.player1) {
-      this.player1StyleRef.current.classList.add("active");
-      this.player2StyleRef.current.classList.remove("notActive");
+      //here we will add style of active player
     } else {
-      this.player2StyleRef.current.classList.add("active");
-      this.player1StyleRef.current.classList.remove("notActive");
+      //here we will add style of active player
     }
     this.setState((prev) => {
       return {

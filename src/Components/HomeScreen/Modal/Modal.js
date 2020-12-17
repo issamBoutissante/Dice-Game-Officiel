@@ -1,46 +1,15 @@
-import React, { useRef, useState } from "react";
-import NewGameModal from "./NewGameModal/NewGameModal";
-import JoinGameModal from "./JoinGameModal/JoinGameModal";
-import PlayModal from "./PlayModal/PlayModal";
-import RequestModal from "./RequestModal/RequestModal";
+import React, { useRef } from "react";
 import "./Modal.css";
 
-const Modal = ({ modalName, setShowModal }) => {
-  const modalRef = useRef(null);
-  const onCloseModalHandler = () => {
-    setShowModal(false);
-  };
-  let content = null;
-  switch (modalName) {
-    case "NewGameModal":
-      content = (
-        <NewGameModal onCloseModalHandler={onCloseModalHandler}></NewGameModal>
-      );
-
-      break;
-    case "JoinGameModal":
-      content = (
-        <JoinGameModal
-          onCloseModalHandler={onCloseModalHandler}
-        ></JoinGameModal>
-      );
-      break;
-    case "PlayModal":
-      content = (
-        <PlayModal onCloseModalHandler={onCloseModalHandler}></PlayModal>
-      );
-      break;
-    case "RequestModal":
-      content = (
-        <RequestModal onCloseModalHandler={onCloseModalHandler}></RequestModal>
-      );
-    default:
-      content = null;
-      break;
-  }
+const Modal = ({ children, height, CloseModal, width }) => {
   return (
-    <div ref={modalRef} className="modal">
-      {content}
+    <div className="modal">
+      <div className="modal-name" style={{ height: height, width: width }}>
+        <span className="close" onClick={CloseModal}>
+          &times;
+        </span>
+        <div className="login">{children}</div>
+      </div>
     </div>
   );
 };

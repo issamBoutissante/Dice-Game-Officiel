@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext } from "react";
 import io from "socket.io-client";
 export const InfoContext = createContext();
 const InfoContextProvider = ({ children }) => {
@@ -6,11 +6,6 @@ const InfoContextProvider = ({ children }) => {
   const [RoomId, setRoomId] = useState("");
   const [HosterName, setHosterName] = useState("");
   const [FriendName, setFriendName] = useState("");
-  useEffect(() => {
-    console.log(
-      "==================================================================================="
-    );
-  }, []);
   return (
     <InfoContext.Provider
       value={{
