@@ -96,10 +96,14 @@ export default class GameScreen extends Component {
   //this player will toggle players and their style
   togglePlayer() {
     if (this.state.currentPlayer === this.state.player1) {
-      this.player1StyleRef.current.classList.add("active");
+      this.player1StyleRef.current.classList.add("notActive");
+      this.player1StyleRef.current.classList.remove("active");
+      this.player2StyleRef.current.classList.add("active");
       this.player2StyleRef.current.classList.remove("notActive");
     } else {
-      this.player2StyleRef.current.classList.add("active");
+      this.player2StyleRef.current.classList.add("notActive");
+      this.player2StyleRef.current.classList.remove("active");
+      this.player1StyleRef.current.classList.add("active");
       this.player1StyleRef.current.classList.remove("notActive");
     }
     this.setState((prev) => {
