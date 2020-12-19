@@ -1,10 +1,12 @@
 import React from "react";
 import Modal from "../Modal/Modal";
-const RequestModal = ({ onAnswerHandler, CloseModal }) => {
+const RequestModal = ({ onAnswerHandler, CloseModal, friendName }) => {
   return (
     <Modal CloseModal={CloseModal}>
       <div>
-        <label for="name">Did you accept chaimae to join you:</label>
+        <label for="name">
+          {friendName} wants to play with you. Do you Accept ?
+        </label>
         <div class="acceptRefuse">
           <button onClick={onAnswerHandler.bind(null, true)}>Accept</button>
           <button onClick={onAnswerHandler.bind(null, false)}>Refuse</button>

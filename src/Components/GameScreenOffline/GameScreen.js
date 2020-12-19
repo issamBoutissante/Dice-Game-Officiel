@@ -113,6 +113,14 @@ export default class GameScreen extends Component {
       this.togglePlayer();
     }
   }
+  componentDidMount() {
+    const { HosterName, FriendName } = this.context;
+    this.setState({
+      player1: HosterName,
+      player2: FriendName,
+      currentPlayer: HosterName,
+    });
+  }
 
   render() {
     return (

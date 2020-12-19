@@ -2,10 +2,13 @@ import React, { useState, createContext } from "react";
 import io from "socket.io-client";
 export const InfoContext = createContext();
 const InfoContextProvider = ({ children }) => {
+  const [isHoster, setIsHoster] = useState(false);
   const [Socket, setSocket] = useState(io("http://localhost:5000"));
   const [RoomId, setRoomId] = useState("");
   const [HosterName, setHosterName] = useState("");
   const [FriendName, setFriendName] = useState("");
+  const [FriendId, setFriendId] = useState("");
+
   return (
     <InfoContext.Provider
       value={{
@@ -16,6 +19,10 @@ const InfoContextProvider = ({ children }) => {
         HosterName,
         setFriendName,
         FriendName,
+        isHoster,
+        setIsHoster,
+        FriendId,
+        setFriendId,
       }}
     >
       {children}

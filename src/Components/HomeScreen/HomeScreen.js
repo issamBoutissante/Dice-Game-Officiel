@@ -1,4 +1,4 @@
-import Reac, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import CloseAppIcon from "./CloseAppIcon/CloseAppIcon";
 import HomeScreenDice from "./HomeScreenDice/HomeScreenDice";
 import StartNewGame from "./StartNewGame/StartNewGame";
@@ -8,9 +8,21 @@ import "./HomeScreen.css";
 import InfoModal from "./InfoModal/InfoModal";
 import { InfoContext } from "../../InfoContext/InfoContext";
 import ErrorModal from "./ErrorModal/ErrorModal";
+import { Redirect } from "react-router-dom";
+import RequestJoinModal from "./RequestModal/RequestModal";
 
 const HomeScreen = () => {
-  const { Socket, RoomId } = useContext(InfoContext);
+  const {
+    Socket,
+    RoomId,
+    isHoster,
+    setHosterName,
+    setFriendName,
+    setFriendId,
+    FriendId,
+    HosterName,
+    FriendName,
+  } = useContext(InfoContext);
   const onlineRef = useRef(null);
   const offlineRef = useRef(null);
   const [showNewGame, setshowNewGame] = useState(false);
@@ -18,8 +30,10 @@ const HomeScreen = () => {
   const [showPlayOffline, setshowPlayOffline] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
   //
+  const [showRequestJoin, setShowRequestJoin] = useState(false);
   const [Error, setError] = useState("Something Wrong Happend!!!");
   const [showError, setShowError] = useState(false);
+  const [showGame, setShowGame] = useState(false);
 
   const onGoOnlineHandler = () => {
     onlineRef.current.style.display = "block";
@@ -38,6 +52,13 @@ const HomeScreen = () => {
   const onPlayHandlerOffline = () => {
     setshowPlayOffline(true);
   };
+  const onAnswerHandler = (isAccepted) => {
+    Socket.emit("requestAnswer", {
+      isAccepted,
+      name: HosterName,
+      nameId: FriendId,
+    });
+  };
   useEffect(() => {
     Socket.on("requestAccepted", ({ confirmPassword }) => {
       Socket.emit("joinAndStartGame", { confirmPassword });
@@ -46,6 +67,19 @@ const HomeScreen = () => {
       setError(error);
       setShowError(true);
       Socket.emit("leave", { roomId: RoomId });
+    });
+    Socket.on("GameStarted", ({ hosterName, frienName }) => {
+      if (isHoster) {
+        setFriendName(frienName);
+      } else {
+        setHosterName(hosterName);
+      }
+      setShowGame(true);
+    });
+    Socket.on("joinRequest", ({ name, nameId }) => {
+      setFriendName(name);
+      setFriendId(nameId);
+      setShowRequestJoin(true);
     });
   }, []);
   return (
@@ -107,6 +141,16 @@ const HomeScreen = () => {
           error={Error}
           CloseModal={() => setShowError(false)}
         ></ErrorModal>
+      ) : null}
+      {showGame ? <Redirect to="/GameScreen"></Redirect> : null}
+      {showRequestJoin ? (
+        <RequestJoinModal
+          onAnswerHandler={onAnswerHandler}
+          CloseModal={() => {
+            setShowRequestJoin(false);
+          }}
+          frienName={FriendName}
+        ></RequestJoinModal>
       ) : null}
     </>
   );

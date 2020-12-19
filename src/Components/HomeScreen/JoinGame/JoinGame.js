@@ -1,36 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import Modal from "../Modal/Modal";
-import { Redirect } from "react-router-dom";
 import { InfoContext } from "../../../InfoContext/InfoContext";
-//import ErrorModal from "../ErrorModal/ErrorModal";
 
 export default function JoinGame({ CloseModal }) {
-  const {
-    setRoomId,
-    Socket,
-    RoomId,
-    setFriendName,
-    setHosterName,
-    FriendName,
-  } = useContext(InfoContext);
-  // const [Error, setError] = useState("Something Wrong Happend!!!");
-  // const [showError, setShowError] = useState(false);
-  const [showGame, setShowGame] = useState(false);
-  useEffect(() => {
-    Socket.on("GameStarted", ({ hosterName }) => {
-      setHosterName(hosterName);
-      setShowGame(true);
-    });
-  }, []);
+  const { setRoomId, Socket, RoomId, setFriendName, FriendName } = useContext(
+    InfoContext
+  );
   const onJoinGameHandler = () => {
-    // Socket.on("requestAccepted", ({ confirmPassword }) => {
-    //   Socket.emit("joinAndStartGame", { confirmPassword });
-    // });
-    // Socket.on("requestError", ({ error }) => {
-    //   setError(error);
-    //   setShowError(true);
-    //   Socket.emit("leave", { roomId: RoomId });
-    // });
     Socket.emit(
       "joinGame",
       { name: FriendName, roomId: RoomId },
@@ -66,13 +42,6 @@ export default function JoinGame({ CloseModal }) {
         />
         <button onClick={onJoinGameHandler}>Join</button>
       </div>
-      {showGame ? <Redirect to="/GameScreen"></Redirect> : null}
-      {/* {showError ? (
-        <ErrorModal
-          error={Error}
-          CloseModal={() => setShowError(false)}
-        ></ErrorModal>
-      ) : null} */}
     </Modal>
   );
 }
