@@ -4,6 +4,9 @@
 *:after,
 *:before {
   box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .GameContainer {
@@ -153,4 +156,14 @@
 }
 .notActive .littleDot {
   background-color: #018bcc;
+}
+/*back icon*/
+.back {
+  color: #50abf1;
+  font-size: 24px;
+  padding-right: 10px;
+}
+.back:hover,
+.back:focus {
+  cursor: pointer;
 }

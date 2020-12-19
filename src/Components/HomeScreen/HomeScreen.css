@@ -3,6 +3,9 @@
 *:after,
 *:before {
   box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 body {
   padding: 0;
@@ -106,4 +109,8 @@ body {
   font-size: 24px;
   margin-top: 10px;
   margin-left: 10px;
+}
+.info-icon:hover,
+.info-icon:focus {
+  cursor: pointer;
 }

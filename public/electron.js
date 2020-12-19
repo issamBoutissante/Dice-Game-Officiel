@@ -1,5 +1,6 @@
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, Menu, dialog } = require("electron");
 const isDev = require("electron-is-dev");
+const path = require("path");
 
 function createWindow() {
   Menu.setApplicationMenu(null);
@@ -11,7 +12,11 @@ function createWindow() {
     },
     frame: false,
   });
-  win.loadURL("http://localhost:3000");
+  win.loadURL(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "../build/index.html")}`
+  );
 }
 
 app.whenReady().then(createWindow);

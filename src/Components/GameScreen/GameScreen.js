@@ -2,13 +2,20 @@ import React, { Component } from "react";
 import { InfoContext } from "../../InfoContext/InfoContext";
 import Game from "../Game/Game";
 const position = {
-  1: "rotateX(180deg) rotateY(1260deg)",
-  2: "rotateX(1620deg) rotateY(1800deg)",
-  3: "rotateX(1620deg) rotateY(90deg)",
-  4: "rotateX(360deg) rotateY(1170deg)",
-  5: "rotateX(1350deg) rotateY(1710deg)",
-  6: "rotateX(810deg) rotateY(1890deg)",
+  1: ["rotateX(180deg) rotateY(1260deg)", "rotateX(-180deg) rotateY(-1260deg)"],
+  2: [
+    "rotateX(1620deg) rotateY(1800deg)",
+    "rotateX(-1620deg) rotateY(-1800deg)",
+  ],
+  3: ["rotateX(1620deg) rotateY(90deg)", "rotateX(-1620deg) rotateY(-90deg)"],
+  4: ["rotateX(360deg) rotateY(1170deg)", "rotateX(-360deg) rotateY(-1170deg)"],
+  5: [
+    "rotateX(1350deg) rotateY(1710deg)",
+    "rotateX(-1350deg) rotateY(-1710deg)",
+  ],
+  6: ["rotateX(810deg) rotateY(1890deg)", "rotateX(-810deg) rotateY(-1890deg)"],
 };
+
 export default class GameScreen extends Component {
   static contextType = InfoContext;
   constructor(props) {
@@ -44,8 +51,24 @@ export default class GameScreen extends Component {
   }
   //When the server send a ranDonm number
   DiceRolledHandler({ ranNum }) {
-    this.setState({ randomNumber: ranNum });
-    this.CubeRef.current.style.transform = position[ranNum];
+    //this function will disable the click event in the page
+    const disableClickEvent = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+    };
+    setTimeout(() => {
+      this.CubeRef.current.classList.remove("RollDice");
+      this.CubeRef.current.style.transform = position[ranNum][0];
+      this.ChangeScore({ ranNum });
+      document.removeEventListener("click", disableClickEvent, true);
+    }, 4000);
+    this.CubeRef.current.style.setProperty("--halfRoll", position[ranNum][0]);
+    this.CubeRef.current.style.setProperty("--fullRoll", position[ranNum][1]);
+    this.CubeRef.current.classList.add("RollDice");
+    document.addEventListener("click", disableClickEvent, true);
+  }
+  //ChangeScore
+  ChangeScore({ ranNum }) {
     if (ranNum === 1) {
       //Here we have to add a sound for losing score
       //and vibre the cube
@@ -53,37 +76,73 @@ export default class GameScreen extends Component {
       this.resetScore();
     } else {
       if (this.state.currentPlayer === this.state.player1) {
-        this.setState((prev) => {
-          return {
-            player1Score: prev.player1Score + ranNum,
-          };
-        });
+        let time = 0;
+        for (
+          let i = this.state.player1Score;
+          i < this.state.player1Score + ranNum;
+          i++
+        ) {
+          time += 200;
+          setTimeout(() => {
+            this.setState((prev) => {
+              return {
+                player1Score: prev.player1Score + 1,
+              };
+            });
+          }, time);
+        }
       } else {
-        this.setState((prev) => {
-          return {
-            player2Score: prev.player2Score + ranNum,
-          };
-        });
+        let time = 0;
+        for (
+          let i = this.state.player2Score;
+          i < this.state.player2Score + ranNum;
+          i++
+        ) {
+          time += 200;
+          setTimeout(() => {
+            this.setState((prev) => {
+              return {
+                player2Score: prev.player2Score + 1,
+              };
+            });
+          }, time);
+        }
       }
     }
   }
   //this function will run when a player hold his points
   ScoreHoldedHandler({ score }) {
+    setTimeout(() => {
+      this.CheckWinner();
+      this.resetScore();
+    }, score * 100);
     if (this.state.currentPlayer === this.state.player1) {
-      this.setState((prev) => {
-        return {
-          player1Total: prev.player1Total + score,
-        };
-      });
+      let time = 0;
+
+      for (let i = 0; i < score; i++) {
+        time += 100;
+        setTimeout(() => {
+          this.setState((prev) => {
+            return {
+              player1Total: prev.player1Total + 1,
+            };
+          });
+        }, time);
+      }
     } else {
-      this.setState((prev) => {
-        return {
-          player2Total: prev.player2Total + score,
-        };
-      });
+      let time = 0;
+
+      for (let i = 0; i < score; i++) {
+        time += 100;
+        setTimeout(() => {
+          this.setState((prev) => {
+            return {
+              player2Total: prev.player2Total + 1,
+            };
+          });
+        }, time);
+      }
     }
-    this.CheckWinner();
-    this.resetScore();
   }
   //this function will run whene the game over
   onGameOverHandler({ winner }) {

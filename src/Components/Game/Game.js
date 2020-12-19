@@ -3,12 +3,14 @@ import { InfoContext } from "../../InfoContext/InfoContext";
 import Dice from "./GameDice/GameDice";
 import "./Game.css";
 import LittleCube from "../LittleCube/LittleCube";
+import { Redirect } from "react-router-dom";
 
 export default class Game extends Component {
   static contextType = InfoContext;
   state = {
     message: "",
     messages: [],
+    BackToHome: false,
   };
   onSendMessageHandler() {
     const { Socket, RoomId } = this.context;
@@ -24,6 +26,9 @@ export default class Game extends Component {
   componentDidMount() {
     const { Socket } = this.context;
     Socket.on("NewMessage", this.onNewMessageHandler.bind(this));
+  }
+  onBackToHomeHandler() {
+    this.setState({ BackToHome: true });
   }
   render() {
     const {
@@ -43,6 +48,10 @@ export default class Game extends Component {
       <div className="GameNontainer">
         <div className="GameNav-container">
           <div className="chat-icon">
+            <i
+              class="fas fa-arrow-circle-left back"
+              onClick={this.onBackToHomeHandler}
+            ></i>
             <i className="fas fa-comments chat"></i>
           </div>
           <div className="goNewGame">
@@ -91,6 +100,7 @@ export default class Game extends Component {
             HOLD
           </button>
         </div>
+        {this.BackToHome ? <Redirect to="/"></Redirect> : null}
       </div>
     );
   }
