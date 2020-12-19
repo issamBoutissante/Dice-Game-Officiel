@@ -35,15 +35,22 @@ export default class GameScreenOffline extends Component {
   };
   //When a player Click Dice
   onRollDiceHandler() {
+    //this function will disable the click event in the page
+    const disableClickEvent = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+    };
     let ranNum = Math.floor(Math.random() * 6 + 1);
     setTimeout(() => {
-      this.CubeRef.current.style.transform = position[ranNum][0];
       this.CubeRef.current.classList.remove("RollDice");
+      this.CubeRef.current.style.transform = position[ranNum][0];
       this.ChangeScore({ ranNum });
+      document.removeEventListener("click", disableClickEvent, true);
     }, 4000);
     this.CubeRef.current.style.setProperty("--halfRoll", position[ranNum][0]);
     this.CubeRef.current.style.setProperty("--fullRoll", position[ranNum][1]);
     this.CubeRef.current.classList.add("RollDice");
+    document.addEventListener("click", disableClickEvent, true);
   }
   //ChangeScore
   ChangeScore({ ranNum }) {
@@ -92,39 +99,38 @@ export default class GameScreenOffline extends Component {
   onHoldHandler() {
     if (this.state.currentPlayer === this.state.player1) {
       let time = 0;
-      for (
-        let i = this.state.player1Score;
-        i < this.state.player1Score + ranNum;
-        i++
-      ) {
+      setTimeout(() => {
+        this.CheckWinner();
+        this.resetScore();
+      }, this.state.player1Score * 200);
+
+      for (let i = 0; i < this.state.player1Score; i++) {
         time += 200;
         setTimeout(() => {
           this.setState((prev) => {
             return {
-              player1Total: prev.player1Total + prev.player1Score,
+              player1Total: prev.player1Total + 1,
             };
           });
         }, time);
       }
     } else {
       let time = 0;
-      for (
-        let i = this.state.player1Score;
-        i < this.state.player1Score + ranNum;
-        i++
-      ) {
+      setTimeout(() => {
+        this.CheckWinner();
+        this.resetScore();
+      }, this.state.player2Score * 200);
+      for (let i = 0; i < this.state.player2Score; i++) {
         time += 200;
         setTimeout(() => {
           this.setState((prev) => {
             return {
-              player2Total: prev.player2Total + prev.player2Score,
+              player2Total: prev.player2Total + 1,
             };
           });
         }, time);
       }
     }
-    this.CheckWinner();
-    this.resetScore();
   }
   //this function will run whene the game over
   onGameOverHandler(PlayerRef) {
