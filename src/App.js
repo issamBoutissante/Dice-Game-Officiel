@@ -3,7 +3,7 @@ import InfoContextProvider from "./InfoContext/InfoContext";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomeScreen from "./Components/HomeScreen/HomeScreen";
 import GameScreen from "./Components/GameScreen/GameScreen";
-import GameScreenOffline from "./Components/GameScreenOffline/GameScreen";
+import GameScreenOffline from "./Components/GameScreenOffline/GameScreenOffline";
 
 function App() {
   return (

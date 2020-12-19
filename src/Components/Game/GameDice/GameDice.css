@@ -1,3 +1,8 @@
+body {
+  --BlueColor: rgb(0, 89, 255);
+  --halfRoll: rotateX(-810deg) rotateY(-1890deg);
+  --fullRoll: rotateX(810deg) rotateY(1890deg);
+}
 .cubeContainer {
   position: relative;
   margin: -40% auto;
@@ -9,14 +14,26 @@
   width: inherit;
   height: inherit;
   transform-style: preserve-3d;
-  transition: transform 2s;
+}
+.RollDice {
+  animation-name: RollDiceAnim;
+  animation-timing-function: ease;
+  animation-duration: 8s;
+}
+@keyframes RollDiceAnim {
+  50% {
+    transform: var(--halfRoll);
+  }
+  100% {
+    transform: var(--fullRoll);
+  }
 }
 .GameSide {
   position: absolute;
   width: inherit;
   height: inherit;
   backface-visibility: hidden;
-  border: 1px solid #50abf1;
+  border: 2px solid var(--BlueColor);
   background-color: white;
 }
 .GameFace1 {
@@ -38,16 +55,16 @@
   transform: rotateX(-90deg) translateZ(65px);
 }
 .GameDot {
-  background-color: #50abf1;
-  width: 15px;
-  height: 15px;
+  background-color: var(--BlueColor);
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   position: absolute;
 }
 /*face1*/
 .GameFace1 .GameDot1 {
-  top: 58px;
-  left: 58px;
+  top: 56px;
+  left: 56px;
 }
 /*face2*/
 .GameFace2 .GameDot1 {
@@ -60,8 +77,8 @@
 }
 /*face3*/
 .GameFace3 .GameDot1 {
-  top: 58px;
-  left: 58px;
+  top: 56px;
+  left: 56px;
 }
 .GameFace3 .GameDot2 {
   bottom: 100px;
@@ -106,8 +123,8 @@
   left: 100px;
 }
 .GameFace5 .GameDot5 {
-  top: 58px;
-  left: 58px;
+  top: 56px;
+  left: 56px;
 }
 /*face6*/
 .GameFace6 .GameDot1 {
@@ -127,12 +144,12 @@
   left: 100px;
 }
 .GameFace6 .GameDot5 {
-  right: 58px;
-  left: 58px;
+  right: 56px;
+  left: 56px;
   bottom: 100px;
 }
 .GameFace6 .GameDot6 {
-  right: 58px;
-  left: 58px;
+  right: 56px;
+  left: 56px;
   top: 100px;
 }

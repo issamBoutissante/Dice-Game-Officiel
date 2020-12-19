@@ -35,50 +35,49 @@ export default class Game extends Component {
       player2Total,
       onRollDiceHandler,
       onHoldHandler,
-      randomNumber,
       player1StyleRef,
       player2StyleRef,
       CubeRef,
     } = this.props;
     return (
-      <div class="GameNontainer">
-        <div class="GameNav-container">
-          <div class="chat-icon">
-            <i class="fas fa-comments chat"></i>
+      <div className="GameNontainer">
+        <div className="GameNav-container">
+          <div className="chat-icon">
+            <i className="fas fa-comments chat"></i>
           </div>
-          <div class="goNewGame">
-            <i class="far fa-plus-square"></i>
+          <div className="goNewGame">
+            <i className="far fa-plus-square"></i>
             <span>New Game</span>
           </div>
-          <div class="GameClose-icon">
-            <span class="GameClose">&times;</span>
+          <div className="GameClose-icon">
+            <span className="GameClose">&times;</span>
           </div>
         </div>
-        <div class="layout-container">
-          <div class="side-container active" ref={player1StyleRef}>
-            <div class="player-name">
+        <div className="layout-container">
+          <div className="side-container active" ref={player1StyleRef}>
+            <div className="player-name">
               <span>{player1}</span>
               <LittleCube></LittleCube>
             </div>
-            <div class="total-point">
+            <div className="total-point">
               <span id="total-score">{player1Total} </span>
             </div>
-            <div class="current-point">
+            <div className="current-point">
               <span>Current</span>
               <div>
                 <span id="current-score">{player1Score}</span>
               </div>
             </div>
           </div>
-          <div class="side-container notActive" ref={player2StyleRef}>
-            <div class="player-name">
+          <div className="side-container notActive" ref={player2StyleRef}>
+            <div className="player-name">
               <span>{player2}</span>
               <LittleCube></LittleCube>
             </div>
-            <div class="total-point">
+            <div className="total-point">
               <span id="total-score">{player2Total} </span>
             </div>
-            <div class="current-point">
+            <div className="current-point">
               <span>Current</span>
               <div>
                 <span id="current-score">{player2Score}</span>
@@ -87,7 +86,7 @@ export default class Game extends Component {
           </div>
         </div>
         <Dice CubeRef={CubeRef} onRollDiceHandler={onRollDiceHandler}></Dice>
-        <div class="hold-container">
+        <div className="hold-container">
           <button id="holdbtn" onClick={onHoldHandler}>
             HOLD
           </button>
