@@ -1,4 +1,4 @@
-import Reac, { useRef, useState } from "react";
+import Reac, { useContext, useEffect, useRef, useState } from "react";
 import CloseAppIcon from "./CloseAppIcon/CloseAppIcon";
 import HomeScreenDice from "./HomeScreenDice/HomeScreenDice";
 import StartNewGame from "./StartNewGame/StartNewGame";
@@ -6,14 +6,21 @@ import JoinGame from "./JoinGame/JoinGame";
 import PlayOffline from "./PlayOffline/PlayOffline";
 import "./HomeScreen.css";
 import InfoModal from "./InfoModal/InfoModal";
+import { InfoContext } from "../../InfoContext/InfoContext";
+import ErrorModal from "./ErrorModal/ErrorModal";
 
 const HomeScreen = () => {
+  const { Socket, RoomId } = useContext(InfoContext);
   const onlineRef = useRef(null);
   const offlineRef = useRef(null);
   const [showNewGame, setshowNewGame] = useState(false);
   const [showJoinGame, setShowJoinGame] = useState(false);
   const [showPlayOffline, setshowPlayOffline] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  //
+  const [Error, setError] = useState("Something Wrong Happend!!!");
+  const [showError, setShowError] = useState(false);
+
   const onGoOnlineHandler = () => {
     onlineRef.current.style.display = "block";
     offlineRef.current.style.display = "none";
@@ -31,6 +38,16 @@ const HomeScreen = () => {
   const onPlayHandlerOffline = () => {
     setshowPlayOffline(true);
   };
+  useEffect(() => {
+    Socket.on("requestAccepted", ({ confirmPassword }) => {
+      Socket.emit("joinAndStartGame", { confirmPassword });
+    });
+    Socket.on("requestError", ({ error }) => {
+      setError(error);
+      setShowError(true);
+      Socket.emit("leave", { roomId: RoomId });
+    });
+  }, []);
   return (
     <>
       <div class="container">
@@ -84,6 +101,12 @@ const HomeScreen = () => {
       ) : null}
       {showInfoModal ? (
         <InfoModal CloseModal={() => setShowInfoModal(false)}></InfoModal>
+      ) : null}
+      {showError ? (
+        <ErrorModal
+          error={Error}
+          CloseModal={() => setShowError(false)}
+        ></ErrorModal>
       ) : null}
     </>
   );

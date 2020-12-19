@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import { Redirect } from "react-router-dom";
 import { InfoContext } from "../../../InfoContext/InfoContext";
+//import ErrorModal from "../ErrorModal/ErrorModal";
+
 export default function JoinGame({ CloseModal }) {
   const {
     setRoomId,
@@ -11,6 +13,8 @@ export default function JoinGame({ CloseModal }) {
     setHosterName,
     FriendName,
   } = useContext(InfoContext);
+  // const [Error, setError] = useState("Something Wrong Happend!!!");
+  // const [showError, setShowError] = useState(false);
   const [showGame, setShowGame] = useState(false);
   useEffect(() => {
     Socket.on("GameStarted", ({ hosterName }) => {
@@ -19,13 +23,14 @@ export default function JoinGame({ CloseModal }) {
     });
   }, []);
   const onJoinGameHandler = () => {
-    Socket.on("requestAccepted", ({ confirmPassword }) => {
-      Socket.emit("joinAndStartGame", { confirmPassword });
-    });
-    Socket.on("requestError", ({ error }) => {
-      alert(error);
-      Socket.emit("leave", { roomId: RoomId });
-    });
+    // Socket.on("requestAccepted", ({ confirmPassword }) => {
+    //   Socket.emit("joinAndStartGame", { confirmPassword });
+    // });
+    // Socket.on("requestError", ({ error }) => {
+    //   setError(error);
+    //   setShowError(true);
+    //   Socket.emit("leave", { roomId: RoomId });
+    // });
     Socket.emit(
       "joinGame",
       { name: FriendName, roomId: RoomId },
@@ -38,8 +43,9 @@ export default function JoinGame({ CloseModal }) {
   return (
     <Modal height="50%" CloseModal={CloseModal}>
       <div id="name-container">
-        <label for="name">Enter your name:</label>
+        <label htmlFor="name">Enter your name:</label>
         <input
+          autoComplete="false"
           type="text"
           name="name"
           id="name"
@@ -47,8 +53,9 @@ export default function JoinGame({ CloseModal }) {
           placeholder="Enter your name.."
         />
         <br />
-        <label for="name">Enter Room ID:</label>
+        <label htmlFor="name">Enter Room ID:</label>
         <input
+          autoComplete="false"
           type="text"
           name="id"
           id="roomID"
@@ -58,8 +65,14 @@ export default function JoinGame({ CloseModal }) {
           placeholder="Enter Room ID.."
         />
         <button onClick={onJoinGameHandler}>Join</button>
-        {showGame ? <Redirect to="/GameScreen"></Redirect> : null}
       </div>
+      {showGame ? <Redirect to="/GameScreen"></Redirect> : null}
+      {/* {showError ? (
+        <ErrorModal
+          error={Error}
+          CloseModal={() => setShowError(false)}
+        ></ErrorModal>
+      ) : null} */}
     </Modal>
   );
 }

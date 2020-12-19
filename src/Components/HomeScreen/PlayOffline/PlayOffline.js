@@ -1,27 +1,37 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Modal from "../Modal/Modal";
+import { InfoContext } from "../../../InfoContext/InfoContext";
+import { Redirect } from "react-router-dom";
+
 export default function PlayOffline({ CloseModal }) {
+  const { setHosterName, setFriendName } = useContext(InfoContext);
+  const [showGame, setShowGame] = useState(false);
+  const onPlayHandler = () => {
+    setShowGame(true);
+  };
   return (
     <Modal height="50%" CloseModal={CloseModal}>
-      {" "}
       <div>
         <label for="name">Enter first player name:</label>
         <input
+          autoComplete="false"
           type="text"
           name="name"
-          id="name1"
+          onChange={(e) => setHosterName(e.target.value)}
           placeholder="Enter first player name.."
         />
         <br />
-        <label for="name">Enter second player name:</label>
+        <label htmlFor="name">Enter second player name:</label>
         <input
+          autoComplete="false"
           type="text"
           name="name"
-          id="name2"
+          onChange={(e) => setFriendName(e.target.value)}
           placeholder="Enter second player name.."
         />
-        <button onclick="sendName()">Start</button>
+        <button onClick={onPlayHandler}>Start</button>
       </div>
+      {showGame ? <Redirect to="/GameScreenOffline"></Redirect> : null}
     </Modal>
   );
 }

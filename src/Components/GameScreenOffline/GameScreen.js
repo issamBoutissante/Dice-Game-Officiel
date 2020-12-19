@@ -30,20 +30,7 @@ export default class GameScreen extends Component {
   };
   //When a player Click Dice
   onRollDiceHandler() {
-    const { Socket, RoomId } = this.context;
-    Socket.emit("RollDice", { roomId: RoomId });
-  }
-  //When a player click hold
-  onHoldHandler() {
-    const { Socket, RoomId } = this.context;
-    if (this.state.currentPlayer === this.state.player1) {
-      Socket.emit("Hold", { roomId: RoomId, score: this.state.player1Score });
-    } else {
-      Socket.emit("Hold", { roomId: RoomId, score: this.state.player2Score });
-    }
-  }
-  //When the server send a ranDonm number
-  DiceRolledHandler({ ranNum }) {
+    let ranNum = Math.floor(Math.random() * 6 + 1);
     this.setState({ randomNumber: ranNum });
     this.CubeRef.current.style.transform = position[ranNum];
     if (ranNum === 1) {
@@ -67,18 +54,18 @@ export default class GameScreen extends Component {
       }
     }
   }
-  //this function will run when a player hold his points
-  ScoreHoldedHandler({ score }) {
+  //When a player click hold
+  onHoldHandler() {
     if (this.state.currentPlayer === this.state.player1) {
       this.setState((prev) => {
         return {
-          player1Total: prev.player1Total + score,
+          player1Total: prev.player1Total + prev.player1Score,
         };
       });
     } else {
       this.setState((prev) => {
         return {
-          player2Total: prev.player2Total + score,
+          player2Total: prev.player2Total + prev.player2Score,
         };
       });
     }
@@ -86,12 +73,8 @@ export default class GameScreen extends Component {
     this.resetScore();
   }
   //this function will run whene the game over
-  onGameOverHandler({ winner }) {
-    if (winner === this.state.player1) {
-      //here we will add style whene player win
-    } else {
-      //here we will add style whene player win
-    }
+  onGameOverHandler(PlayerRef) {
+    //here we will change the winner style witch in this case PlayerRef
   }
   //this player will toggle players and their style
   togglePlayer() {
@@ -122,25 +105,13 @@ export default class GameScreen extends Component {
   }
   //this function will check if there is a winner
   CheckWinner() {
-    const { Socket } = this.context;
     if (this.state.player1Total >= this.state.finalScore) {
-      Socket.emit("GameOver", { winner: this.state.player1 });
+      this.onGameOverHandler(this.player1StyleRef);
     } else if (this.state.player2Total >= this.state.finalScore) {
-      Socket.emit("GameOver", { winner: this.state.player2 });
+      this.onGameOverHandler(this.player2StyleRef);
     } else {
       this.togglePlayer();
     }
-  }
-  componentDidMount() {
-    const { HosterName, FriendName, Socket } = this.context;
-    this.setState({
-      player1: HosterName,
-      player2: FriendName,
-      currentPlayer: HosterName,
-    });
-    Socket.on("DiceRolled", this.DiceRolledHandler.bind(this));
-    Socket.on("ScoreHolded", this.ScoreHoldedHandler.bind(this));
-    Socket.on("GameOvered", this.onGameOverHandler.bind(this));
   }
 
   render() {

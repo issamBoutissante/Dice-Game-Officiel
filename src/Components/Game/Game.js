@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { InfoContext } from "../../../InfoContext/InfoContext";
+import { InfoContext } from "../../InfoContext/InfoContext";
 import Dice from "./GameDice/GameDice";
 import "./Game.css";
-import LittleCube from "../../LittleCube/LittleCube";
+import LittleCube from "../LittleCube/LittleCube";
 
 export default class Game extends Component {
   static contextType = InfoContext;
