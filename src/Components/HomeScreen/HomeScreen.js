@@ -10,6 +10,7 @@ import { InfoContext } from "../../InfoContext/InfoContext";
 import ErrorModal from "./ErrorModal/ErrorModal";
 import { Redirect } from "react-router-dom";
 import RequestJoinModal from "./RequestModal/RequestModal";
+import Dialog from "../Dialog/Dialog";
 
 const HomeScreen = () => {
   const {
@@ -29,11 +30,11 @@ const HomeScreen = () => {
   const [showJoinGame, setShowJoinGame] = useState(false);
   const [showPlayOffline, setshowPlayOffline] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  //
   const [showRequestJoin, setShowRequestJoin] = useState(false);
   const [Error, setError] = useState("Something Wrong Happend!!!");
   const [showError, setShowError] = useState(false);
   const [showGame, setShowGame] = useState(false);
+  const [showCloseDialog, setShowCloseDialog] = useState(false);
 
   const onGoOnlineHandler = () => {
     onlineRef.current.style.display = "block";
@@ -85,7 +86,7 @@ const HomeScreen = () => {
   return (
     <>
       <div class="container">
-        <CloseAppIcon></CloseAppIcon>
+        <CloseAppIcon setShowCloseDialog={setShowCloseDialog}></CloseAppIcon>
         <div class="info-icon" id="Info" onClick={() => setShowInfoModal(true)}>
           <i class="fas fa-info-circle"></i>
         </div>
@@ -151,6 +152,13 @@ const HomeScreen = () => {
           }}
           frienName={FriendName}
         ></RequestJoinModal>
+      ) : null}
+      {showCloseDialog ? (
+        <Dialog
+          CloseModal={() => {
+            setShowCloseDialog(false);
+          }}
+        ></Dialog>
       ) : null}
     </>
   );
