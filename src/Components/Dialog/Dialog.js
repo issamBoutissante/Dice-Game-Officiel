@@ -1,19 +1,20 @@
 import React from "react";
 import Modal from "../HomeScreen/Modal/Modal";
-import { remote } from "electron";
-const { app } = remote;
+//const { ipcRenderer } = window.require("electron");
 
 const Dialog = ({ CloseModal }) => {
   const onCloseAppHandler = () => {
-    app.quit();
+    //  ipcRenderer.send("CloseApp");
   };
   return (
     <Modal CloseModal={CloseModal}>
       <div>
         <label for="name">Are you sure you want to close the game ?</label>
         <div class="acceptRefuse">
-          <button onClick={CloseModal}>Cancel</button>
           <button onClick={onCloseAppHandler}>Close</button>
+          <button style={{ backgroundColor: "#ccc" }} onClick={CloseModal}>
+            Cancel
+          </button>
         </div>
       </div>
     </Modal>

@@ -23,6 +23,7 @@ export default function JoinGame({ CloseModal }) {
         <input
           autoComplete="false"
           type="text"
+          style={{ color: "#50abf1" }}
           name="name"
           id="name"
           onChange={(e) => setFriendName(e.target.value)}
@@ -33,6 +34,7 @@ export default function JoinGame({ CloseModal }) {
         <input
           autoComplete="false"
           type="text"
+          style={{ color: "#50abf1" }}
           name="id"
           id="roomID"
           onChange={(e) => {

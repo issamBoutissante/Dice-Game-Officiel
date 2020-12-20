@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, dialog } = require("electron");
+const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
 
@@ -31,4 +31,7 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+ipcMain.on("CloseApp", () => {
+  app.quit();
 });

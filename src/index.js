@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import Dialog from "./Components/Dialog/Dialog";
+import Router from "./Router";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Dialog />
+    <Router />
   </React.StrictMode>,
   document.getElementById("root")
 );

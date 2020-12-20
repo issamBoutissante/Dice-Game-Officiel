@@ -9,7 +9,12 @@ const RequestModal = ({ onAnswerHandler, CloseModal, friendName }) => {
         </label>
         <div class="acceptRefuse">
           <button onClick={onAnswerHandler.bind(null, true)}>Accept</button>
-          <button onClick={onAnswerHandler.bind(null, false)}>Refuse</button>
+          <button
+            style={{ backgroundColor: "#ccc" }}
+            onClick={onAnswerHandler.bind(null, false)}
+          >
+            Refuse
+          </button>
         </div>
       </div>
     </Modal>

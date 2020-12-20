@@ -4,6 +4,7 @@ import Dice from "./GameDice/GameDice";
 import "./Game.css";
 import LittleCube from "../LittleCube/LittleCube";
 import { Redirect } from "react-router-dom";
+import Modal from "../HomeScreen/Modal/Modal";
 
 export default class Game extends Component {
   static contextType = InfoContext;
@@ -11,6 +12,7 @@ export default class Game extends Component {
     message: "",
     messages: [],
     BackToHome: false,
+    showDialogModal: false,
   };
   onSendMessageHandler() {
     const { Socket, RoomId } = this.context;
@@ -30,6 +32,7 @@ export default class Game extends Component {
   onBackToHomeHandler() {
     this.setState({ BackToHome: true });
   }
+
   render() {
     const {
       player1,
@@ -50,7 +53,7 @@ export default class Game extends Component {
           <div className="chat-icon">
             <i
               class="fas fa-arrow-circle-left back"
-              onClick={this.onBackToHomeHandler}
+              onClick={this.onBackToHomeHandler.bind(this)}
             ></i>
             <i className="fas fa-comments chat"></i>
           </div>
@@ -58,7 +61,10 @@ export default class Game extends Component {
             <i className="far fa-plus-square"></i>
             <span>New Game</span>
           </div>
-          <div className="GameClose-icon">
+          <div
+            className="GameClose-icon"
+            onClick={() => this.setState({ showDialogModal: true })}
+          >
             <span className="GameClose">&times;</span>
           </div>
         </div>
@@ -100,7 +106,10 @@ export default class Game extends Component {
             HOLD
           </button>
         </div>
-        {this.BackToHome ? <Redirect to="/"></Redirect> : null}
+        {this.state.BackToHome ? <Redirect to="/"></Redirect> : null}
+        {this.state.showDialogModal ? (
+          <Modal CloseModal={this.setState({ showDialogModal: false })}></Modal>
+        ) : null}
       </div>
     );
   }

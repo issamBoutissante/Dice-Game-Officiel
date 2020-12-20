@@ -114,3 +114,6 @@ body {
 .info-icon:focus {
   cursor: pointer;
 }
+input {
+  color: #50abf1;
+}

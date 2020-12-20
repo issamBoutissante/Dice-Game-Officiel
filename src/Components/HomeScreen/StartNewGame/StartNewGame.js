@@ -54,6 +54,7 @@ export default function StartNewGame({ CloseModal }) {
               type="text"
               name="name"
               id="name"
+              style={{ color: "#50abf1" }}
               onChange={(e) => {
                 setHosterName(e.target.value);
               }}

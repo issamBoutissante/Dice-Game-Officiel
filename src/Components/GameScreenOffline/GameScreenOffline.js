@@ -47,8 +47,8 @@ export default class GameScreenOffline extends Component {
       this.ChangeScore({ ranNum });
       document.removeEventListener("click", disableClickEvent, true);
     }, 4000);
-    this.CubeRef.current.style.setProperty("--halfRoll", position[ranNum][0]);
-    this.CubeRef.current.style.setProperty("--fullRoll", position[ranNum][1]);
+    this.CubeRef.current.style.setProperty("--halfRoll", position[ranNum][1]);
+    this.CubeRef.current.style.setProperty("--fullRoll", position[ranNum][0]);
     this.CubeRef.current.classList.add("RollDice");
     document.addEventListener("click", disableClickEvent, true);
   }

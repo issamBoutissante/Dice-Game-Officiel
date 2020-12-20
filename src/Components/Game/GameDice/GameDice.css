@@ -19,7 +19,8 @@ body {
 .RollDice {
   animation-name: RollDiceAnim;
   animation-timing-function: ease;
-  animation-duration: 8s;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
 }
 @keyframes RollDiceAnim {
   50% {
