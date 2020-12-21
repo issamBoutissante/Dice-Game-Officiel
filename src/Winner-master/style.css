@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
 
 /* The Modal */
-.modal {
+.modalWinner {
   position: fixed;
   z-index: 1;
   padding-top: 100px;
@@ -13,16 +13,6 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Modal container */
-.login {
-  font-size: 24px;
-  margin: 10px;
-
-  background-color: rgba(255, 255, 255, 0.1);
-  font-family: "Luckiest Guy", cursive;
-  color: #50abf1;
-  outline: none;
-}
 .btnWin {
   position: absolute;
   display: flex;
@@ -49,7 +39,7 @@
   box-shadow: none;
 }
 
-#modalWinner .modal-name {
+.modalWinner .modal-win {
   position: relative;
   margin: auto;
   border: 1px solid #888;
@@ -75,7 +65,7 @@
     opacity: 1;
   }
 }
-.close {
+.closeWin {
   position: absolute;
   color: #50abf1;
   float: right;
@@ -83,8 +73,8 @@
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.closeWin:hover,
+.closeWin:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
@@ -99,7 +89,7 @@ canvas {
   right: 0;
   left: 0;
 }
-#modalWinner Img {
+.modalWinner Img {
   position: absolute;
   display: block;
   max-width: 207px;

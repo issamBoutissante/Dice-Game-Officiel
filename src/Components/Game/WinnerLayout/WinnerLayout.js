@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import WinImage from "../../../assets/win.png";
+import ScriptUrl from "./app";
 
 export default function WinnerLayout() {
+  useEffect(() => {
+    let script = window.document.createElement("script");
+    script.src = ScriptUrl;
+    script.async = true;
+    window.document.body.appendChild(script);
+  }, []);
   return (
-    // <!-- The Modal Info-->
-    <div class="modal" id="modalWinner">
+    //  <!-- The Modal Info-->
+    <div class="modalWinner">
       {/* <!-- Modal content for Info --> */}
-      <div class="modal-name">
+      <div class="modal-win">
         <canvas id="Canvas"> </canvas>
-        <img src="win.png" />
+        <img src={WinImage} />
         <div id="winner-container">
-          <span class="close">&times;</span>
+          <span class="closeWin">&times;</span>
           <span class="winner-name">Chimae Wins!</span>
           <div class="btnWin">
             <button>NEW GAME</button>
