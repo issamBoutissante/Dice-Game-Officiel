@@ -46,6 +46,7 @@ export default class Game extends Component {
       player1StyleRef,
       player2StyleRef,
       CubeRef,
+      onPlayAgainHandler,
     } = this.props;
     return (
       <div className="GameNontainer">
@@ -57,7 +58,7 @@ export default class Game extends Component {
             ></i>
             <i className="fas fa-comments chat"></i>
           </div>
-          <div className="goNewGame">
+          <div className="goNewGame" onClick={onPlayAgainHandler}>
             <i className="far fa-plus-square"></i>
             <span>New Game</span>
           </div>

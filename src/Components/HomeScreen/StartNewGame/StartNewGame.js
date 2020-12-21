@@ -46,6 +46,7 @@ export default function StartNewGame({ CloseModal }) {
                 </span>
               </i>
             </div>
+            <h2>Send this id to your friend to start Playing</h2>
           </div>
         ) : (
           <div>

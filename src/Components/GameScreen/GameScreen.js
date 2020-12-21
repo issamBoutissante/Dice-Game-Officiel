@@ -200,6 +200,19 @@ export default class GameScreen extends Component {
     Socket.on("DiceRolled", this.DiceRolledHandler.bind(this));
     Socket.on("ScoreHolded", this.ScoreHoldedHandler.bind(this));
     Socket.on("GameOvered", this.onGameOverHandler.bind(this));
+    Socket.on("onPlayAgain", this.onPlayNewGameHandler.bind(this));
+  }
+  onPlayNewGameHandler() {
+    this.setState({
+      player1Total: 0,
+      player2Total: 0,
+      player1Score: 0,
+      player2Score: 0,
+    });
+  }
+  onPlayAgainHandler() {
+    const { Socket, RoomId } = this.context;
+    Socket.emit("PlayAgain", { RoomId });
   }
 
   render() {
@@ -217,6 +230,7 @@ export default class GameScreen extends Component {
         player1StyleRef={this.player1StyleRef}
         player2StyleRef={this.player2StyleRef}
         CubeRef={this.CubeRef}
+        onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
       ></Game>
     );
   }

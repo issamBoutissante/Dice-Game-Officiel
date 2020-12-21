@@ -156,6 +156,15 @@ export default class GameScreenOffline extends Component {
       };
     });
   }
+  //this will restart the game
+  onPlayAgainHandler() {
+    this.setState({
+      player1Total: 0,
+      player2Total: 0,
+      player1Score: 0,
+      player2Score: 0,
+    });
+  }
   //this will set the players score to 0
   resetScore() {
     this.setState({
@@ -196,6 +205,7 @@ export default class GameScreenOffline extends Component {
         player1StyleRef={this.player1StyleRef}
         player2StyleRef={this.player2StyleRef}
         CubeRef={this.CubeRef}
+        onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
       ></Game>
     );
   }
