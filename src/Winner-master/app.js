@@ -30,11 +30,9 @@ function newShell() {
 
   shells.push(shell);
 }
-
 function newPass(shell) {
   var pasCount = Math.ceil(Math.pow(shell.size, 2) * Math.PI);
-
-  for (i = 0; i < pasCount; i++) {
+  for (let j = 0; j < pasCount; j++) {
     var pas = {};
     pas.x = shell.x * cwidth;
     pas.y = shell.y * cheight;

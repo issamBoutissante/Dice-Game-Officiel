@@ -7,8 +7,8 @@
   padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 900px;
+  height: 550px;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }
@@ -17,7 +17,8 @@
   position: absolute;
   display: flex;
   margin-top: 300px;
-  margin-left: 240px;
+  margin-left: 180px;
+  margin-left: 160px;
 }
 .btnWin button {
   padding: 10px;
@@ -43,8 +44,8 @@
   position: relative;
   margin: auto;
   border: 1px solid #888;
-  width: 60%;
-  height: 60%;
+  width: 80%;
+  height: 80%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: animatetop;
   animation-duration: 0.4s;
@@ -93,7 +94,7 @@ canvas {
   position: absolute;
   display: block;
   max-width: 207px;
-  margin: 35%;
+  margin: 30%;
   margin-top: 16%;
 }
 /**/
@@ -101,7 +102,7 @@ canvas {
   position: absolute;
   font-size: 35px;
   color: #fff;
-  margin-left: 280px;
+  margin-left: 230px;
   top: 40px;
   font-family: "Luckiest Guy", cursive;
   -webkit-text-stroke: 2px #018bcc;

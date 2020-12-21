@@ -26,7 +26,7 @@ export default class GameScreenOffline extends Component {
     this.CubeRef = React.createRef();
   }
   state = {
-    finalScore: 15,
+    finalScore: 5,
     player1: "",
     player2: "",
     currentPlayer: "",
@@ -50,7 +50,7 @@ export default class GameScreenOffline extends Component {
       this.CubeRef.current.style.transform = position[ranNum][0];
       this.ChangeScore({ ranNum });
       document.removeEventListener("click", disableClickEvent, true);
-    }, 4000);
+    }, 1500);
     this.CubeRef.current.style.setProperty("--halfRoll", position[ranNum][1]);
     this.CubeRef.current.style.setProperty("--fullRoll", position[ranNum][0]);
     this.CubeRef.current.classList.add("RollDice");
@@ -212,7 +212,9 @@ export default class GameScreenOffline extends Component {
           CubeRef={this.CubeRef}
           onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
         ></Game>
-        <WinnerLayout winner={this.state.winner}></WinnerLayout>
+        {this.state.isWinner ? (
+          <WinnerLayout winner={this.state.winner}></WinnerLayout>
+        ) : null}
       </>
     );
   }
