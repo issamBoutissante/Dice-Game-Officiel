@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { InfoContext } from "../../InfoContext/InfoContext";
 import Game from "../Game/Game";
+import WinnerLayout from "../Game/WinnerLayout/WinnerLayout";
+
 const position = {
   1: ["rotateX(180deg) rotateY(1260deg)", "rotateX(-180deg) rotateY(-1260deg)"],
   2: [
@@ -32,6 +34,8 @@ export default class GameScreenOffline extends Component {
     player2Total: 0,
     player1Score: 0,
     player2Score: 0,
+    isWinner: false,
+    winner: "",
   };
   //When a player Click Dice
   onRollDiceHandler() {
@@ -133,8 +137,8 @@ export default class GameScreenOffline extends Component {
     }
   }
   //this function will run whene the game over
-  onGameOverHandler(PlayerRef) {
-    //here we will change the winner style witch in this case PlayerRef
+  onGameOverHandler({ winner }) {
+    this.setState({ winner: winner, isWinner: true });
   }
   //this player will toggle players and their style
   togglePlayer() {
@@ -175,9 +179,9 @@ export default class GameScreenOffline extends Component {
   //this function will check if there is a winner
   CheckWinner() {
     if (this.state.player1Total >= this.state.finalScore) {
-      this.onGameOverHandler(this.player1StyleRef);
+      this.onGameOverHandler({ winner: this.state.player1 });
     } else if (this.state.player2Total >= this.state.finalScore) {
-      this.onGameOverHandler(this.player2StyleRef);
+      this.onGameOverHandler({ winner: this.state.player2 });
     } else {
       this.togglePlayer();
     }
@@ -193,20 +197,23 @@ export default class GameScreenOffline extends Component {
 
   render() {
     return (
-      <Game
-        player1={this.state.player1}
-        player2={this.state.player2}
-        player1Score={this.state.player1Score}
-        player2Score={this.state.player2Score}
-        player1Total={this.state.player1Total}
-        player2Total={this.state.player2Total}
-        onRollDiceHandler={this.onRollDiceHandler.bind(this)}
-        onHoldHandler={this.onHoldHandler.bind(this)}
-        player1StyleRef={this.player1StyleRef}
-        player2StyleRef={this.player2StyleRef}
-        CubeRef={this.CubeRef}
-        onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
-      ></Game>
+      <>
+        <Game
+          player1={this.state.player1}
+          player2={this.state.player2}
+          player1Score={this.state.player1Score}
+          player2Score={this.state.player2Score}
+          player1Total={this.state.player1Total}
+          player2Total={this.state.player2Total}
+          onRollDiceHandler={this.onRollDiceHandler.bind(this)}
+          onHoldHandler={this.onHoldHandler.bind(this)}
+          player1StyleRef={this.player1StyleRef}
+          player2StyleRef={this.player2StyleRef}
+          CubeRef={this.CubeRef}
+          onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
+        ></Game>
+        <WinnerLayout winner={this.state.winner}></WinnerLayout>
+      </>
     );
   }
 }
