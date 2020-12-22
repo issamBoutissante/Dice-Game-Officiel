@@ -1,11 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import { InfoContext } from "../../../InfoContext/InfoContext";
 
 export default function JoinGame({ CloseModal }) {
-  const { setRoomId, Socket, RoomId, setFriendName, FriendName } = useContext(
-    InfoContext
-  );
+  const {
+    setRoomId,
+    Socket,
+    RoomId,
+    setFriendName,
+    FriendName,
+    setIsHoster,
+  } = useContext(InfoContext);
   const onJoinGameHandler = () => {
     Socket.emit(
       "joinGame",
@@ -15,6 +20,9 @@ export default function JoinGame({ CloseModal }) {
       }
     );
   };
+  useEffect(() => {
+    setIsHoster(false);
+  }, []);
 
   return (
     <Modal height="50%" CloseModal={CloseModal}>

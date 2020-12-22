@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import Modal from "../Modal/Modal";
 import "./StartNewGame.css";
 import { InfoContext } from "../../../InfoContext/InfoContext";
@@ -7,10 +7,17 @@ export default function StartNewGame({ CloseModal }) {
   const [showId, setShowId] = useState(false);
   const RoomIdRef = useRef(null);
   const ToolTipRef = useRef(null);
-  const { setRoomId, Socket, RoomId, setHosterName, HosterName } = useContext(
-    InfoContext
-  );
-
+  const {
+    setRoomId,
+    Socket,
+    RoomId,
+    setHosterName,
+    HosterName,
+    setIsHoster,
+  } = useContext(InfoContext);
+  useEffect(() => {
+    setIsHoster(true);
+  }, []);
   const onStartNewGameHandler = () => {
     Socket.emit("startNewGame", { name: HosterName }, ({ roomId }) => {
       setRoomId(roomId);
@@ -46,7 +53,9 @@ export default function StartNewGame({ CloseModal }) {
                 </span>
               </i>
             </div>
-            <h2>Send this id to your friend to start Playing</h2>
+            <h2 style={{ fontFamily: "Luckiest Guy", paddingLeft: "10px" }}>
+              Send this id to your friend to start Playing
+            </h2>
           </div>
         ) : (
           <div>

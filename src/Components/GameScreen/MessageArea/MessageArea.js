@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./MessageArea.css";
 import { InfoContext } from "../../../InfoContext/InfoContext";
 
@@ -9,10 +9,13 @@ export default function MessageArea({
   messages,
   onSendMessageHandler,
 }) {
-  const { isHoster } = useContext(InfoContext);
+  const { isHoster, HosterName, FriendName } = useContext(InfoContext);
   const onCloseChatHandler = () => {
     ChatRef.current.style.width = "0";
   };
+  useEffect(() => {
+    console.log(isHoster);
+  });
   return (
     <div id="mySideChat" ref={ChatRef} className="sideChat">
       <a className="closebtn" onClick={onCloseChatHandler}>
@@ -20,19 +23,19 @@ export default function MessageArea({
       </a>
       <div className="chat">
         <div className="chat-title">
-          <h1>Hamood</h1>
+          <h1>{isHoster ? FriendName : HosterName}</h1>
         </div>
         <div className="messages">
           <div className="messages-content">
-            {/* <ul style="text-decoration: none">
+            <ul style={{ textDecoration: "none" }}>
               {messages.map((mes) => {
-                if (isHoster) {
+                if (isHoster === true) {
                   return <li className="message message-personal">{mes}</li>;
                 } else {
                   return <li className="message">{mes}</li>;
                 }
               })}
-            </ul> */}
+            </ul>
           </div>
         </div>
 

@@ -40,7 +40,7 @@ export default class Game extends Component {
   }
   //this will open the messaging area
   onOpenMessageArea() {
-    this.ChatRef.style.width = "350px";
+    this.ChatRef.current.style.width = "350px";
   }
   setMessageHandler(e) {
     this.setState({ message: e.target.value });
@@ -70,7 +70,7 @@ export default class Game extends Component {
             ></i>
             {this.props.showMessageIcon ? (
               <i
-                onClick={this.onCloseMessageAreaHandler}
+                onClick={this.onOpenMessageArea.bind(this)}
                 className="fas fa-comments chat"
               ></i>
             ) : null}
