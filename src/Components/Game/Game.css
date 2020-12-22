@@ -14,6 +14,7 @@
   height: 100vh;
   background-color: #fff;
   perspective: 1000px;
+  --count: "0";
 }
 .GameNav-container {
   width: inherit;

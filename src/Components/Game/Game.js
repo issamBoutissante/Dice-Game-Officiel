@@ -11,6 +11,8 @@ export default class Game extends Component {
   constructor(props) {
     super(props);
     this.ChatRef = React.createRef();
+    this.ChatIconRef = React.createRef();
+    this.GameRef = React.createRef();
   }
   static contextType = InfoContext;
   state = {
@@ -18,10 +20,16 @@ export default class Game extends Component {
     messages: [],
     BackToHome: false,
     showDialogModal: false,
+    isMessageAreaOpen: false,
+    CountNewMessages: 0,
   };
   onSendMessageHandler() {
-    const { Socket, RoomId } = this.context;
-    Socket.emit("SendMessage", { RoomId, message: this.state.message });
+    const { Socket, RoomId, isHoster } = this.context;
+    console.log(isHoster);
+    Socket.emit("SendMessage", {
+      RoomId,
+      message: { Message: this.state.message, isHoster },
+    });
     this.setState({ message: "" });
   }
   onNewMessageHandler({ message }) {
@@ -30,6 +38,17 @@ export default class Game extends Component {
         messages: [...prev.messages, message],
       };
     });
+    if (!this.state.isMessageAreaOpen) {
+      this.setState((prev) => {
+        return {
+          CountNewMessages: prev.CountNewMessages + 1,
+        };
+      });
+      this.GameRef.current.style.setProperty(
+        "--count",
+        this.state.CountNewMessages
+      );
+    }
   }
   componentDidMount() {
     const { Socket } = this.context;
@@ -41,6 +60,15 @@ export default class Game extends Component {
   //this will open the messaging area
   onOpenMessageArea() {
     this.ChatRef.current.style.width = "350px";
+    this.toggleMessageAreaActive();
+  }
+  toggleMessageAreaActive() {
+    this.setState((prev) => {
+      return {
+        isMessageAreaOpen: prev.isMessageAreaOpen ? false : true,
+        CountNewMessages: 0,
+      };
+    });
   }
   setMessageHandler(e) {
     this.setState({ message: e.target.value });
@@ -61,7 +89,7 @@ export default class Game extends Component {
       onPlayAgainHandler,
     } = this.props;
     return (
-      <div className="GameNontainer">
+      <div ref={this.GameRef} className="GameNontainer">
         <div className="GameNav-container">
           <div className="chat-icon">
             <i
@@ -70,6 +98,7 @@ export default class Game extends Component {
             ></i>
             {this.props.showMessageIcon ? (
               <i
+                ref={this.ChatIconRef}
                 onClick={this.onOpenMessageArea.bind(this)}
                 className="fas fa-comments chat"
               ></i>
@@ -126,6 +155,7 @@ export default class Game extends Component {
         </div>
         <MessageArea
           ChatRef={this.ChatRef}
+          toggleMessageAreaActive={this.toggleMessageAreaActive.bind(this)}
           messages={this.state.messages}
           setMessageHandler={this.setMessageHandler.bind(this)}
           message={this.state.message}

@@ -165,6 +165,6 @@ textarea::placeholder {
   padding: 3px;
   color: #fff;
   border-radius: 50%;
-  content: "1";
+  content: var(--count);
   padding-top: 1.5px;
 }

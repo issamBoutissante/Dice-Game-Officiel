@@ -8,10 +8,12 @@ export default function MessageArea({
   message,
   messages,
   onSendMessageHandler,
+  toggleMessageAreaActive,
 }) {
   const { isHoster, HosterName, FriendName } = useContext(InfoContext);
   const onCloseChatHandler = () => {
     ChatRef.current.style.width = "0";
+    toggleMessageAreaActive();
   };
   useEffect(() => {
     console.log(isHoster);
@@ -29,10 +31,12 @@ export default function MessageArea({
           <div className="messages-content">
             <ul style={{ textDecoration: "none" }}>
               {messages.map((mes) => {
-                if (isHoster === true) {
-                  return <li className="message message-personal">{mes}</li>;
+                if (mes.isHoster) {
+                  return (
+                    <li className="message message-personal">{mes.Message}</li>
+                  );
                 } else {
-                  return <li className="message">{mes}</li>;
+                  return <li className="message">{mes.Message}</li>;
                 }
               })}
             </ul>
