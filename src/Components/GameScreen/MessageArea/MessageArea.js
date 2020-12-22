@@ -1,38 +1,50 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./MessageArea.css";
+import { InfoContext } from "../../../InfoContext/InfoContext";
 
-export default function MessageArea() {
+export default function MessageArea({
+  ChatRef,
+  setMessageHandler,
+  message,
+  messages,
+  onSendMessageHandler,
+}) {
+  const { isHoster } = useContext(InfoContext);
+  const onCloseChatHandler = () => {
+    ChatRef.current.style.width = "0";
+  };
   return (
-    <div id="mySideChat" class="sideChat">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeChat()">
+    <div id="mySideChat" ref={ChatRef} className="sideChat">
+      <a className="closebtn" onClick={onCloseChatHandler}>
         &times;
       </a>
-      <div class="chat">
-        <div class="chat-title">
+      <div className="chat">
+        <div className="chat-title">
           <h1>Hamood</h1>
         </div>
-        <div class="messages">
-          <div class="messages-content">
-            <ul style="text-decoration: none">
-              <li class="message">Hello Chaimae</li>
-              <li class="message message-personal">Hi Dude</li>
-              <li class="message">What are you doing?</li>
-              <li class="message message-personal">nothing!</li>
-              <li class="message">You are lazy</li>
-              <li class="message message-personal">not as you bitch</li>
-              <li class="message">You are lazy</li>
-              <li class="message message-personal">not as you bitch</li>
-            </ul>
+        <div className="messages">
+          <div className="messages-content">
+            {/* <ul style="text-decoration: none">
+              {messages.map((mes) => {
+                if (isHoster) {
+                  return <li className="message message-personal">{mes}</li>;
+                } else {
+                  return <li className="message">{mes}</li>;
+                }
+              })}
+            </ul> */}
           </div>
         </div>
 
-        <div class="message-box">
+        <div className="message-box">
           <textarea
+            value={message}
             type="text"
-            class="message-input"
+            className="message-input"
             placeholder="Type message..."
+            onChange={setMessageHandler}
           ></textarea>
-          <button type="submit" class="message-submit">
+          <button onClick={onSendMessageHandler} className="message-submit">
             Send
           </button>
         </div>

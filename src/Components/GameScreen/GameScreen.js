@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { InfoContext } from "../../InfoContext/InfoContext";
 import Game from "../Game/Game";
 import WinnerLayout from "../Game/WinnerLayout/WinnerLayout";
-import MessageArea from "./MessageArea/MessageArea";
 
 const position = {
   1: ["rotateX(180deg) rotateY(1260deg)", "rotateX(-180deg) rotateY(-1260deg)"],
@@ -224,6 +223,7 @@ export default class GameScreen extends Component {
     console.log(this.state.iswinner);
     console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++==");
   }
+  //this function will send message
 
   render() {
     return (
@@ -243,10 +243,9 @@ export default class GameScreen extends Component {
           player2StyleRef={this.player2StyleRef}
           onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
         ></Game>
-        <MessageArea></MessageArea>
         {this.state.iswinner ? (
           <WinnerLayout
-            onStartNewGameHandlerr={this.onStartNewGameHandler}
+            onStartNewGameHandler={this.onStartNewGameHandler.bind(this)}
             winner={this.state.winner}
           ></WinnerLayout>
         ) : null}

@@ -5,8 +5,13 @@ import "./Game.css";
 import LittleCube from "../LittleCube/LittleCube";
 import { Redirect } from "react-router-dom";
 import Modal from "../HomeScreen/Modal/Modal";
+import MessageArea from "../GameScreen/MessageArea/MessageArea";
 
 export default class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.ChatRef = React.createRef();
+  }
   static contextType = InfoContext;
   state = {
     message: "",
@@ -17,6 +22,7 @@ export default class Game extends Component {
   onSendMessageHandler() {
     const { Socket, RoomId } = this.context;
     Socket.emit("SendMessage", { RoomId, message: this.state.message });
+    this.setState({ message: "" });
   }
   onNewMessageHandler({ message }) {
     this.setState((prev) => {
@@ -32,7 +38,13 @@ export default class Game extends Component {
   onBackToHomeHandler() {
     this.setState({ BackToHome: true });
   }
-
+  //this will open the messaging area
+  onOpenMessageArea() {
+    this.ChatRef.style.width = "350px";
+  }
+  setMessageHandler(e) {
+    this.setState({ message: e.target.value });
+  }
   render() {
     const {
       player1,
@@ -57,7 +69,10 @@ export default class Game extends Component {
               onClick={this.onBackToHomeHandler.bind(this)}
             ></i>
             {this.props.showMessageIcon ? (
-              <i className="fas fa-comments chat"></i>
+              <i
+                onClick={this.onCloseMessageAreaHandler}
+                className="fas fa-comments chat"
+              ></i>
             ) : null}
           </div>
           <div className="goNewGame" onClick={onPlayAgainHandler}>
@@ -109,6 +124,13 @@ export default class Game extends Component {
             HOLD
           </button>
         </div>
+        <MessageArea
+          ChatRef={this.ChatRef}
+          messages={this.state.messages}
+          setMessageHandler={this.setMessageHandler.bind(this)}
+          message={this.state.message}
+          onSendMessageHandler={this.onSendMessageHandler.bind(this)}
+        ></MessageArea>
         {this.state.BackToHome ? <Redirect to="/"></Redirect> : null}
         {this.state.showDialogModal ? (
           <Modal CloseModal={this.setState({ showDialogModal: false })}></Modal>

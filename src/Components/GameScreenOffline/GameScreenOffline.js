@@ -194,7 +194,11 @@ export default class GameScreenOffline extends Component {
       currentPlayer: HosterName,
     });
   }
-
+  //this fuction will start new Game when game is over
+  onStartNewGameHandler() {
+    this.onPlayAgainHandler();
+    this.setState({ iswinner: false });
+  }
   render() {
     return (
       <>
@@ -214,7 +218,10 @@ export default class GameScreenOffline extends Component {
           onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
         ></Game>
         {this.state.isWinner ? (
-          <WinnerLayout winner={this.state.winner}></WinnerLayout>
+          <WinnerLayout
+            onStartNewGameHandler={this.onStartNewGameHandler.bind(this)}
+            winner={this.state.winner}
+          ></WinnerLayout>
         ) : null}
       </>
     );
