@@ -56,7 +56,9 @@ export default class Game extends Component {
               class="fas fa-arrow-circle-left back"
               onClick={this.onBackToHomeHandler.bind(this)}
             ></i>
-            <i className="fas fa-comments chat"></i>
+            {this.props.showMessageIcon ? (
+              <i className="fas fa-comments chat"></i>
+            ) : null}
           </div>
           <div className="goNewGame" onClick={onPlayAgainHandler}>
             <i className="far fa-plus-square"></i>

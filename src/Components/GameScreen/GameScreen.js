@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { InfoContext } from "../../InfoContext/InfoContext";
 import Game from "../Game/Game";
 import WinnerLayout from "../Game/WinnerLayout/WinnerLayout";
+import MessageArea from "./MessageArea/MessageArea";
 
 const position = {
   1: ["rotateX(180deg) rotateY(1260deg)", "rotateX(-180deg) rotateY(-1260deg)"],
@@ -119,12 +120,12 @@ export default class GameScreen extends Component {
     setTimeout(() => {
       this.CheckWinner();
       this.resetScore();
-    }, score * 100);
+    }, score * 50);
     if (this.state.currentPlayer === this.state.player1) {
       let time = 0;
 
       for (let i = 0; i < score; i++) {
-        time += 100;
+        time += 50;
         setTimeout(() => {
           this.setState((prev) => {
             return {
@@ -137,7 +138,7 @@ export default class GameScreen extends Component {
       let time = 0;
 
       for (let i = 0; i < score; i++) {
-        time += 100;
+        time += 50;
         setTimeout(() => {
           this.setState((prev) => {
             return {
@@ -214,11 +215,21 @@ export default class GameScreen extends Component {
     const { Socket, RoomId } = this.context;
     Socket.emit("PlayAgain", { RoomId });
   }
+  //this fuction will start new Game when game is over
+  onStartNewGameHandler() {
+    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++==");
+    console.log(this.state.iswinner);
+    this.onPlayAgainHandler();
+    this.setState({ iswinner: false });
+    console.log(this.state.iswinner);
+    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++==");
+  }
 
   render() {
     return (
       <>
         <Game
+          showMessageIcon={true}
           player1={this.state.player1}
           player2={this.state.player2}
           player1Score={this.state.player1Score}
@@ -232,8 +243,12 @@ export default class GameScreen extends Component {
           player2StyleRef={this.player2StyleRef}
           onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
         ></Game>
+        <MessageArea></MessageArea>
         {this.state.iswinner ? (
-          <WinnerLayout winner={this.state.winner}></WinnerLayout>
+          <WinnerLayout
+            onStartNewGameHandlerr={this.onStartNewGameHandler}
+            winner={this.state.winner}
+          ></WinnerLayout>
         ) : null}
       </>
     );

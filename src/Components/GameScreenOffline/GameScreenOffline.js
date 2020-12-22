@@ -199,6 +199,7 @@ export default class GameScreenOffline extends Component {
     return (
       <>
         <Game
+          showMessageIcon={false}
           player1={this.state.player1}
           player2={this.state.player2}
           player1Score={this.state.player1Score}
