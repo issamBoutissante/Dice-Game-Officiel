@@ -46,6 +46,7 @@ export default class GameScreen extends Component {
     const { Socket, RoomId } = this.context;
     Socket.emit("RollDice", { roomId: RoomId });
   }
+
   //When a player click hold
   onHoldHandler() {
     const { Socket, RoomId } = this.context;
@@ -205,6 +206,7 @@ export default class GameScreen extends Component {
     Socket.on("GameOvered", this.onGameOverHandler.bind(this));
     Socket.on("onPlayAgain", this.onPlayNewGameHandler.bind(this));
   }
+
   onPlayNewGameHandler() {
     this.setState({
       player1Total: 0,
