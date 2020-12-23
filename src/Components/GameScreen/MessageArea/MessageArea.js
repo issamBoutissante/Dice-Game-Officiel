@@ -27,7 +27,7 @@ export default function MessageArea({
         <div className="chat-title">
           <h1>{isHoster ? FriendName : HosterName}</h1>
         </div>
-        <div className="messages">
+        <div className="messages scrollbar">
           <div className="messages-content">
             <ul style={{ textDecoration: "none" }}>
               {messages.map((mes) => {

@@ -66,10 +66,31 @@ Messages
 .messages {
   flex: 1 1;
   color: rgba(255, 255, 255, 0.5);
-  position: relative;
-  width: 100%;
-  margin-left: 0;
+  position: absolute;
+  width: 350px;
+  margin-left: 0px;
+  float: left;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.8);
+  overflow-y: scroll;
 }
+.scrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(131, 192, 241, 0.883);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(138, 197, 245, 0.883);
+}
+
 .messages-content {
   position: absolute;
   top: 0;
@@ -89,7 +110,7 @@ Messages
   border-radius: 10px 10px 10px 0;
   background: linear-gradient(120deg, #f1f1f1, #fff);
   margin: 8px 0;
-  font-size: 11px;
+  font-size: 18px;
   line-height: 1.4;
   margin-left: 10px;
   position: relative;
@@ -124,8 +145,8 @@ Message Box
   outline: none !important;
   resize: none;
   color: rgb(255, 255, 255);
-  font-size: 11px;
-  height: 17px;
+  font-size: 16px;
+  height: 24px;
   margin: 0;
   padding-right: 20px;
   width: 265px;
@@ -143,10 +164,10 @@ textarea::placeholder {
   color: #fff;
   border: none;
   background: #018bcc;
-  font-size: 10px;
+  font-size: 14px;
   text-transform: uppercase;
   line-height: 1;
-  padding: 6px 10px;
+  padding: 8px 10px;
   border-radius: 10px;
   outline: none !important;
   transition: background 0.2s ease;
@@ -163,8 +184,27 @@ textarea::placeholder {
   top: 3px;
   font-size: 10px;
   padding: 3px;
+  padding-top: 1.5px;
   color: #fff;
   border-radius: 50%;
-  content: var(--count);
-  padding-top: 1.5px;
+  content: "10";
+}
+
+.sideChat::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.sideChat::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.sideChat::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.sideChat::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

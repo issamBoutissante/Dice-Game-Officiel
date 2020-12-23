@@ -46,8 +46,10 @@ export default class Game extends Component {
       });
       this.GameRef.current.style.setProperty(
         "--count",
-        this.state.CountNewMessages
+        `${this.state.CountNewMessages}`
       );
+      // alert(this.state.CountNewMessages);
+      // window.getComputedStyle('chat',":after").content="Coun"
     }
   }
   componentDidMount() {
