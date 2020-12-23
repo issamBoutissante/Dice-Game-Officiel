@@ -11,6 +11,7 @@ import ErrorModal from "./ErrorModal/ErrorModal";
 import { Redirect } from "react-router-dom";
 import RequestJoinModal from "./RequestModal/RequestModal";
 import Dialog from "../Dialog/Dialog";
+//import HoverSound from "../../assets/hoverSound.wav";
 
 const HomeScreen = () => {
   const {
@@ -37,6 +38,7 @@ const HomeScreen = () => {
   const [showCloseDialog, setShowCloseDialog] = useState(false);
 
   const onGoOnlineHandler = () => {
+    //  new Audio(hoverSound);
     onlineRef.current.style.display = "block";
     offlineRef.current.style.display = "none";
   };
@@ -150,7 +152,7 @@ const HomeScreen = () => {
           CloseModal={() => {
             setShowRequestJoin(false);
           }}
-          frienName={FriendName}
+          friendName={FriendName}
         ></RequestJoinModal>
       ) : null}
       {showCloseDialog ? (

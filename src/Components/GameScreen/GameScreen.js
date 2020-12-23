@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { InfoContext } from "../../InfoContext/InfoContext";
 import Game from "../Game/Game";
 import WinnerLayout from "../Game/WinnerLayout/WinnerLayout";
+import rollSound from "../../assets/rollSound.mp3";
+let rollAudio = new Audio(rollSound);
 
 const position = {
   1: ["rotateX(180deg) rotateY(1260deg)", "rotateX(-180deg) rotateY(-1260deg)"],
@@ -65,9 +67,10 @@ export default class GameScreen extends Component {
       this.CubeRef.current.style.transform = position[ranNum][0];
       this.ChangeScore({ ranNum });
       document.removeEventListener("click", disableClickEvent, true);
-    }, 1500);
-    this.CubeRef.current.style.setProperty("--halfRoll", position[ranNum][0]);
-    this.CubeRef.current.style.setProperty("--fullRoll", position[ranNum][1]);
+    }, 1000);
+    rollAudio.play();
+    this.CubeRef.current.style.setProperty("--halfRoll", position[ranNum][1]);
+    this.CubeRef.current.style.setProperty("--fullRoll", position[ranNum][0]);
     this.CubeRef.current.classList.add("RollDice");
     document.addEventListener("click", disableClickEvent, true);
   }
@@ -209,6 +212,7 @@ export default class GameScreen extends Component {
       player1Score: 0,
       player2Score: 0,
     });
+    this.setState({ iswinner: false });
   }
   onPlayAgainHandler() {
     const { Socket, RoomId } = this.context;
@@ -216,12 +220,7 @@ export default class GameScreen extends Component {
   }
   //this fuction will start new Game when game is over
   onStartNewGameHandler() {
-    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++==");
-    console.log(this.state.iswinner);
     this.onPlayAgainHandler();
-    this.setState({ iswinner: false });
-    console.log(this.state.iswinner);
-    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++==");
   }
   //this function will send message
 
@@ -242,6 +241,7 @@ export default class GameScreen extends Component {
           player1StyleRef={this.player1StyleRef}
           player2StyleRef={this.player2StyleRef}
           onPlayAgainHandler={this.onPlayAgainHandler.bind(this)}
+          CubeRef={this.CubeRef}
         ></Game>
         {this.state.iswinner ? (
           <WinnerLayout

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { InfoContext } from "../../InfoContext/InfoContext";
 import Game from "../Game/Game";
 import WinnerLayout from "../Game/WinnerLayout/WinnerLayout";
-
+import rollSound from "../../assets/rollSound.mp3";
+let rollAudio = new Audio(rollSound);
 const position = {
   1: ["rotateX(180deg) rotateY(1260deg)", "rotateX(-180deg) rotateY(-1260deg)"],
   2: [
@@ -26,7 +27,7 @@ export default class GameScreenOffline extends Component {
     this.CubeRef = React.createRef();
   }
   state = {
-    finalScore: 5,
+    finalScore: 10,
     player1: "",
     player2: "",
     currentPlayer: "",
@@ -50,7 +51,8 @@ export default class GameScreenOffline extends Component {
       this.CubeRef.current.style.transform = position[ranNum][0];
       this.ChangeScore({ ranNum });
       document.removeEventListener("click", disableClickEvent, true);
-    }, 1500);
+    }, 1000);
+    rollAudio.play();
     this.CubeRef.current.style.setProperty("--halfRoll", position[ranNum][1]);
     this.CubeRef.current.style.setProperty("--fullRoll", position[ranNum][0]);
     this.CubeRef.current.classList.add("RollDice");
@@ -106,10 +108,10 @@ export default class GameScreenOffline extends Component {
       setTimeout(() => {
         this.CheckWinner();
         this.resetScore();
-      }, this.state.player1Score * 200);
+      }, this.state.player1Score * 50);
 
       for (let i = 0; i < this.state.player1Score; i++) {
-        time += 200;
+        time += 50;
         setTimeout(() => {
           this.setState((prev) => {
             return {
@@ -123,9 +125,9 @@ export default class GameScreenOffline extends Component {
       setTimeout(() => {
         this.CheckWinner();
         this.resetScore();
-      }, this.state.player2Score * 200);
+      }, this.state.player2Score * 50);
       for (let i = 0; i < this.state.player2Score; i++) {
-        time += 200;
+        time += 50;
         setTimeout(() => {
           this.setState((prev) => {
             return {
@@ -178,9 +180,9 @@ export default class GameScreenOffline extends Component {
   }
   //this function will check if there is a winner
   CheckWinner() {
-    if (this.state.player1Total >= this.state.finalScore) {
+    if (this.state.player1Total > this.state.finalScore - 1) {
       this.onGameOverHandler({ winner: this.state.player1 });
-    } else if (this.state.player2Total >= this.state.finalScore) {
+    } else if (this.state.player2Total > this.state.finalScore - 1) {
       this.onGameOverHandler({ winner: this.state.player2 });
     } else {
       this.togglePlayer();
@@ -194,11 +196,7 @@ export default class GameScreenOffline extends Component {
       currentPlayer: HosterName,
     });
   }
-  //this fuction will start new Game when game is over
-  onStartNewGameHandler() {
-    this.onPlayAgainHandler();
-    this.setState({ iswinner: false });
-  }
+
   render() {
     return (
       <>
@@ -219,8 +217,14 @@ export default class GameScreenOffline extends Component {
         ></Game>
         {this.state.isWinner ? (
           <WinnerLayout
-            onStartNewGameHandler={this.onStartNewGameHandler.bind(this)}
+            onStartNewGameHandler={() => {
+              this.setState({ isWinner: false });
+              this.onPlayAgainHandler();
+            }}
             winner={this.state.winner}
+            CloseModal={() => {
+              this.setState({ isWinner: false });
+            }}
           ></WinnerLayout>
         ) : null}
       </>

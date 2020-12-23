@@ -176,8 +176,7 @@ textarea::placeholder {
 .message-submit:hover {
   background: #50abf1;
 }
-
-.chat:after {
+.newMessages {
   position: absolute;
   background-color: red;
   left: 70px;
@@ -189,6 +188,18 @@ textarea::placeholder {
   border-radius: 50%;
   content: "10";
 }
+/* .chat:after {
+  position: absolute;
+  background-color: red;
+  left: 70px;
+  top: 3px;
+  font-size: 10px;
+  padding: 3px;
+  padding-top: 1.5px;
+  color: #fff;
+  border-radius: 50%;
+  content: "10";
+} */
 
 .sideChat::-webkit-scrollbar {
   width: 10px;

@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import WinImage from "../../../assets/win.png";
 import "./WinnerLayout.css";
-import ScriptTag from "react-script-tag";
 import { Redirect } from "react-router-dom";
-export default function WinnerLayout({ winner, onStartNewGameHandler }) {
+export default function WinnerLayout({
+  winner,
+  onStartNewGameHandler,
+  CloseModal,
+}) {
   const CanvasRef = useRef(null);
   const [goBack, setGoBack] = useState(false);
   const onBackToMenu = () => {
@@ -129,17 +132,19 @@ export default function WinnerLayout({ winner, onStartNewGameHandler }) {
   return (
     <>
       {/* //  <!-- The Modal Info--> */}
-      <div class="modalWinner">
+      <div className="modalWinner">
         {/* <!-- Modal content for Info --> */}
-        <div class="modal-win">
+        <div className="modal-win">
           <canvas id="Canvas" ref={CanvasRef}>
             {" "}
           </canvas>
           <img src={WinImage} />
           <div id="winner-container">
-            <span class="closeWin">&times;</span>
-            <span class="winner-name">{winner} Wins!</span>
-            <div class="btnWin">
+            <span className="closeWin" onClick={CloseModal}>
+              &times;
+            </span>
+            <span className="winner-name">{winner} Wins!</span>
+            <div className="btnWin">
               <button onClick={onStartNewGameHandler}>NEW GAME</button>
               <button onClick={onBackToMenu}>START MENU</button>
             </div>
@@ -147,7 +152,6 @@ export default function WinnerLayout({ winner, onStartNewGameHandler }) {
         </div>
       </div>
       {goBack ? <Redirect to="/"></Redirect> : null}
-      <ScriptTag type="text/javascript" src="/app.js"></ScriptTag>
     </>
   );
 }

@@ -25,7 +25,6 @@ export default class Game extends Component {
   };
   onSendMessageHandler() {
     const { Socket, RoomId, isHoster } = this.context;
-    console.log(isHoster);
     Socket.emit("SendMessage", {
       RoomId,
       message: { Message: this.state.message, isHoster },
@@ -44,10 +43,6 @@ export default class Game extends Component {
           CountNewMessages: prev.CountNewMessages + 1,
         };
       });
-      this.GameRef.current.style.setProperty(
-        "--count",
-        `${this.state.CountNewMessages}`
-      );
       // alert(this.state.CountNewMessages);
       // window.getComputedStyle('chat',":after").content="Coun"
     }
@@ -95,15 +90,22 @@ export default class Game extends Component {
         <div className="GameNav-container">
           <div className="chat-icon">
             <i
-              class="fas fa-arrow-circle-left back"
+              className="fas fa-arrow-circle-left back"
               onClick={this.onBackToHomeHandler.bind(this)}
             ></i>
             {this.props.showMessageIcon ? (
-              <i
-                ref={this.ChatIconRef}
-                onClick={this.onOpenMessageArea.bind(this)}
-                className="fas fa-comments chat"
-              ></i>
+              <>
+                <i
+                  ref={this.ChatIconRef}
+                  onClick={this.onOpenMessageArea.bind(this)}
+                  className="fas fa-comments chat"
+                ></i>
+                {this.state.CountNewMessages != 0 ? (
+                  <span className="newMessages">
+                    {this.state.CountNewMessages}
+                  </span>
+                ) : null}
+              </>
             ) : null}
           </div>
           <div className="goNewGame" onClick={onPlayAgainHandler}>
