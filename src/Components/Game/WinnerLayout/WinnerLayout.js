@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import WinImage from "../../../assets/win.png";
 import "./WinnerLayout.css";
 import { Redirect } from "react-router-dom";
+import clickSound from "../../../assets/clickSound.mp3";
+let clickAudio = new Audio(clickSound);
+
 export default function WinnerLayout({
   winner,
   onStartNewGameHandler,
@@ -145,8 +148,22 @@ export default function WinnerLayout({
             </span>
             <span className="winner-name">{winner} Wins!</span>
             <div className="btnWin">
-              <button onClick={onStartNewGameHandler}>NEW GAME</button>
-              <button onClick={onBackToMenu}>START MENU</button>
+              <button
+                onClick={() => {
+                  clickAudio.play();
+                  onStartNewGameHandler();
+                }}
+              >
+                NEW GAME
+              </button>
+              <button
+                onClick={() => {
+                  clickAudio.play();
+                  onBackToMenu();
+                }}
+              >
+                START MENU
+              </button>
             </div>
           </div>
         </div>

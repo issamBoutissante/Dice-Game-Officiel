@@ -11,7 +11,8 @@ import ErrorModal from "./ErrorModal/ErrorModal";
 import { Redirect } from "react-router-dom";
 import RequestJoinModal from "./RequestModal/RequestModal";
 import Dialog from "../Dialog/Dialog";
-//import HoverSound from "../../assets/hoverSound.wav";
+import clickSound from "../../assets/clickSound.mp3";
+let clickAudio = new Audio(clickSound);
 
 const HomeScreen = () => {
   const {
@@ -38,24 +39,29 @@ const HomeScreen = () => {
   const [showCloseDialog, setShowCloseDialog] = useState(false);
 
   const onGoOnlineHandler = () => {
-    //  new Audio(hoverSound);
+    clickAudio.play();
     onlineRef.current.style.display = "block";
     offlineRef.current.style.display = "none";
   };
   const onGoOfflineHandler = () => {
+    clickAudio.play();
     offlineRef.current.style.display = "block";
     onlineRef.current.style.display = "none";
   };
   const onNewGameHandler = () => {
+    clickAudio.play();
     setshowNewGame(true);
   };
   const onJoinGameHandler = () => {
+    clickAudio.play();
     setShowJoinGame(true);
   };
   const onPlayHandlerOffline = () => {
+    clickAudio.play();
     setshowPlayOffline(true);
   };
   const onAnswerHandler = (isAccepted) => {
+    clickAudio.play();
     Socket.emit("requestAnswer", {
       isAccepted,
       name: HosterName,
@@ -88,13 +94,27 @@ const HomeScreen = () => {
   return (
     <>
       <div class="container">
-        <CloseAppIcon setShowCloseDialog={setShowCloseDialog}></CloseAppIcon>
-        <div class="info-icon" id="Info" onClick={() => setShowInfoModal(true)}>
+        <CloseAppIcon
+          setShowCloseDialog={() => {
+            clickAudio.play();
+            setShowCloseDialog();
+          }}
+        ></CloseAppIcon>
+        <div
+          class="info-icon"
+          id="Info"
+          onClick={() => {
+            clickAudio.play();
+            setShowInfoModal(true);
+          }}
+        >
           <i class="fas fa-info-circle"></i>
         </div>
         <header class="nav">
           <div class="logo">
-            <span class="Logo-text"> Dice Game</span>
+            <span class="Logo-text" style={{ marginLeft: "20px" }}>
+              Dice Game
+            </span>
           </div>
 
           <div class="buttons">
@@ -128,19 +148,29 @@ const HomeScreen = () => {
         </div>
       </div>
       {showNewGame ? (
-        <StartNewGame CloseModal={() => setshowNewGame(false)}></StartNewGame>
+        <StartNewGame
+          clickAudio={clickAudio}
+          CloseModal={() => setshowNewGame(false)}
+        ></StartNewGame>
       ) : null}
       {showJoinGame ? (
-        <JoinGame CloseModal={() => setShowJoinGame(false)}></JoinGame>
+        <JoinGame
+          clickAudio={clickAudio}
+          CloseModal={() => setShowJoinGame(false)}
+        ></JoinGame>
       ) : null}
       {showPlayOffline ? (
-        <PlayOffline CloseModal={() => setshowPlayOffline(false)}></PlayOffline>
+        <PlayOffline
+          clickAudio={clickAudio}
+          CloseModal={() => setshowPlayOffline(false)}
+        ></PlayOffline>
       ) : null}
       {showInfoModal ? (
         <InfoModal CloseModal={() => setShowInfoModal(false)}></InfoModal>
       ) : null}
       {showError ? (
         <ErrorModal
+          clickAudio={clickAudio}
           error={Error}
           CloseModal={() => setShowError(false)}
         ></ErrorModal>
@@ -148,6 +178,7 @@ const HomeScreen = () => {
       {showGame ? <Redirect to="/GameScreen"></Redirect> : null}
       {showRequestJoin ? (
         <RequestJoinModal
+          clickAudio={clickAudio}
           onAnswerHandler={onAnswerHandler}
           CloseModal={() => {
             setShowRequestJoin(false);
@@ -157,6 +188,7 @@ const HomeScreen = () => {
       ) : null}
       {showCloseDialog ? (
         <Dialog
+          clickAudio={clickAudio}
           CloseModal={() => {
             setShowCloseDialog(false);
           }}

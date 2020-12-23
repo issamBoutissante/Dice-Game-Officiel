@@ -27,7 +27,7 @@ export default class GameScreenOffline extends Component {
     this.CubeRef = React.createRef();
   }
   state = {
-    finalScore: 10,
+    finalScore: 100,
     player1: "",
     player2: "",
     currentPlayer: "",

@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "../Modal/Modal";
+
 export default function InfoModal({ CloseModal }) {
   return (
     <Modal CloseModal={CloseModal} height="80%" width="90%">

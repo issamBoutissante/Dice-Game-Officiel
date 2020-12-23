@@ -6,6 +6,8 @@ import LittleCube from "../LittleCube/LittleCube";
 import { Redirect } from "react-router-dom";
 import Modal from "../HomeScreen/Modal/Modal";
 import MessageArea from "../GameScreen/MessageArea/MessageArea";
+import clickSound from "../../assets/clickSound.mp3";
+let clickAudio = new Audio(clickSound);
 
 export default class Game extends Component {
   constructor(props) {
@@ -43,8 +45,6 @@ export default class Game extends Component {
           CountNewMessages: prev.CountNewMessages + 1,
         };
       });
-      // alert(this.state.CountNewMessages);
-      // window.getComputedStyle('chat',":after").content="Coun"
     }
   }
   componentDidMount() {
@@ -91,13 +91,19 @@ export default class Game extends Component {
           <div className="chat-icon">
             <i
               className="fas fa-arrow-circle-left back"
-              onClick={this.onBackToHomeHandler.bind(this)}
+              onClick={() => {
+                clickAudio.play();
+                this.onBackToHomeHandler();
+              }}
             ></i>
             {this.props.showMessageIcon ? (
               <>
                 <i
                   ref={this.ChatIconRef}
-                  onClick={this.onOpenMessageArea.bind(this)}
+                  onClick={() => {
+                    clickAudio.play();
+                    this.onOpenMessageArea();
+                  }}
                   className="fas fa-comments chat"
                 ></i>
                 {this.state.CountNewMessages != 0 ? (
@@ -108,16 +114,20 @@ export default class Game extends Component {
               </>
             ) : null}
           </div>
-          <div className="goNewGame" onClick={onPlayAgainHandler}>
+          <div
+            className="goNewGame"
+            onClick={() => {
+              clickAudio.play();
+              onPlayAgainHandler();
+            }}
+          >
             <i className="far fa-plus-square"></i>
             <span>New Game</span>
           </div>
           <div
             className="GameClose-icon"
             onClick={() => this.setState({ showDialogModal: true })}
-          >
-            <span className="GameClose">&times;</span>
-          </div>
+          ></div>
         </div>
         <div className="layout-container">
           <div className="side-container active" ref={player1StyleRef}>
@@ -153,7 +163,13 @@ export default class Game extends Component {
         </div>
         <Dice CubeRef={CubeRef} onRollDiceHandler={onRollDiceHandler}></Dice>
         <div className="hold-container">
-          <button id="holdbtn" onClick={onHoldHandler}>
+          <button
+            id="holdbtn"
+            onClick={() => {
+              clickAudio.play();
+              onHoldHandler();
+            }}
+          >
             HOLD
           </button>
         </div>

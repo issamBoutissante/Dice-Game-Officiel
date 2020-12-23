@@ -29,7 +29,7 @@ export default class GameScreen extends Component {
     this.CubeRef = React.createRef();
   }
   state = {
-    finalScore: 15,
+    finalScore: 100,
     player1: "",
     player2: "",
     randomNumber: 0,
@@ -185,9 +185,9 @@ export default class GameScreen extends Component {
   //this function will check if there is a winner
   CheckWinner() {
     const { Socket } = this.context;
-    if (this.state.player1Total >= this.state.finalScore) {
+    if (this.state.player1Total > this.state.finalScore) {
       Socket.emit("GameOver", { winner: this.state.player1 });
-    } else if (this.state.player2Total >= this.state.finalScore) {
+    } else if (this.state.player2Total > this.state.finalScore) {
       Socket.emit("GameOver", { winner: this.state.player2 });
     } else {
       this.togglePlayer();

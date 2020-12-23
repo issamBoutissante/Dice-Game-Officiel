@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import { InfoContext } from "../../../InfoContext/InfoContext";
 
-export default function JoinGame({ CloseModal }) {
+export default function JoinGame({ CloseModal, clickAudio }) {
   const {
     setRoomId,
     Socket,
@@ -50,7 +50,14 @@ export default function JoinGame({ CloseModal }) {
           }}
           placeholder="Enter Room ID.."
         />
-        <button onClick={onJoinGameHandler}>Join</button>
+        <button
+          onClick={() => {
+            clickAudio.play();
+            onJoinGameHandler();
+          }}
+        >
+          Join
+        </button>
       </div>
     </Modal>
   );

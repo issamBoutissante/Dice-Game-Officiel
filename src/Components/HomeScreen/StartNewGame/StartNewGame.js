@@ -3,7 +3,7 @@ import Modal from "../Modal/Modal";
 import "./StartNewGame.css";
 import { InfoContext } from "../../../InfoContext/InfoContext";
 
-export default function StartNewGame({ CloseModal }) {
+export default function StartNewGame({ CloseModal, clickAudio }) {
   const [showId, setShowId] = useState(false);
   const RoomIdRef = useRef(null);
   const ToolTipRef = useRef(null);
@@ -70,7 +70,14 @@ export default function StartNewGame({ CloseModal }) {
               }}
               placeholder="Enter your name.."
             />
-            <button onClick={onStartNewGameHandler}>submit</button>
+            <button
+              onClick={() => {
+                clickAudio.play();
+                onStartNewGameHandler();
+              }}
+            >
+              submit
+            </button>
           </div>
         )}
       </Modal>

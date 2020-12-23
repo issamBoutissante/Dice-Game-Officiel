@@ -3,7 +3,7 @@ import Modal from "../Modal/Modal";
 import { InfoContext } from "../../../InfoContext/InfoContext";
 import { Redirect } from "react-router-dom";
 
-export default function PlayOffline({ CloseModal }) {
+export default function PlayOffline({ CloseModal, clickAudio }) {
   const { setHosterName, setFriendName } = useContext(InfoContext);
   const [showGame, setShowGame] = useState(false);
   const onPlayHandler = () => {
@@ -29,7 +29,14 @@ export default function PlayOffline({ CloseModal }) {
           onChange={(e) => setFriendName(e.target.value)}
           placeholder="Enter second player name.."
         />
-        <button onClick={onPlayHandler}>Start</button>
+        <button
+          onClick={() => {
+            clickAudio.play();
+            onPlayHandler();
+          }}
+        >
+          Start
+        </button>
       </div>
       {showGame ? <Redirect to="/GameScreenOffline"></Redirect> : null}
     </Modal>
